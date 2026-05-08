@@ -118,13 +118,6 @@ setInterval(function() {
   if (!btn) return;
 
   btn.addEventListener('click', function() {
-    this.textContent = "✓ Request sent — we'll be in touch within 24 hours!";
-    this.style.background = 'var(--green)';
-
-    var self = this;
-    setTimeout(function() {
-      self.textContent = 'Book My Free Call';
-      self.style.background = '';
-    }, 5000);
+    window.open('https://www.facebook.com/joseph.j.lejarde', '_blank', 'noopener');
   });
 })();
