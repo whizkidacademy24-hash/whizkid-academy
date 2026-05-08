@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enroll — WhizKid Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/enroll.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="logo-icon">
+          <div class="candles-wrap">
+            <div class="cd ca">
+              <div class="wk" style="height:3px"></div>
+              <div class="bd"></div>
+              <div class="wk" style="height:2px"></div>
+            </div>
+            <div class="cd cb">
+              <div class="wk" style="height:5px"></div>
+              <div class="bd"></div>
+              <div class="wk" style="height:2px"></div>
+            </div>
+            <div class="cd cc">
+              <div class="wk" style="height:3px"></div>
+              <div class="bd"></div>
+              <div class="wk" style="height:2px"></div>
+            </div>
+          </div>
+          <div class="arrow-mini"></div>
+        </div>
+        <div class="logo-words">
+          <div class="logo-wm">
+            <span class="lw-wk">WHIZKID</span><span class="lw-dot">·</span><span class="lw-ac">ACADEMY</span>
+          </div>
+          <div class="logo-sub"><span class="sg">Learn</span> <span class="sv">Trading</span></div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="portal.html">Student Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Start Your <span>Trading Journey</span></h1>
+    <p>Choose your program, complete your details, and submit your payment to get started within 24 hours.</p>
+  </div>
+
+  <!-- PROGRESS STEPS -->
+  <div class="progress-wrap">
+    <div class="progress-steps">
+      <div class="step-item active" id="si-1">
+        <div class="step-circle" id="sc-1">1</div>
+        <div class="step-label">Program</div>
+      </div>
+      <div class="step-item" id="si-2">
+        <div class="step-circle" id="sc-2">2</div>
+        <div class="step-label">Details</div>
+      </div>
+      <div class="step-item" id="si-3">
+        <div class="step-circle" id="sc-3">3</div>
+        <div class="step-label">Payment</div>
+      </div>
+      <div class="step-item" id="si-4">
+        <div class="step-circle" id="sc-4">4</div>
+        <div class="step-label">Confirm</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENROLLMENT WIZARD -->
+  <div class="enroll-wrap">
+
+    <!-- STEP 1: CHOOSE PROGRAM -->
+    <div class="step-panel active" id="step-1">
+      <div class="step-heading">
+        <h2>Choose Your Program</h2>
+        <p>Select the program that best fits your goals and budget. All programs include lifetime access.</p>
+      </div>
+
+      <div class="programs-grid">
+
+        <label class="program-card" id="card-starter" onclick="selectProgram('starter',5000,'Starter Trading Program','One-time · Lifetime access')">
+          <input type="radio" name="program" value="starter">
+          <div class="selected-check">✓</div>
+          <div class="card-name">Starter Trading Program</div>
+          <div class="card-price">₱5,000 <span>one-time</span></div>
+          <div class="card-sub">One-time · Lifetime access</div>
+          <ul class="card-features">
+            <li>Trading fundamentals from scratch</li>
+            <li>Charts &amp; price action</li>
+            <li>Risk &amp; money management basics</li>
+            <li>PDF workbooks</li>
+          </ul>
+        </label>
+
+        <label class="program-card" id="card-fundamentals" onclick="selectProgram('fundamentals',10000,'Introduction to Fundamentals','One-time · Lifetime access')">
+          <input type="radio" name="program" value="fundamentals">
+          <div class="selected-check">✓</div>
+          <div class="card-name">Introduction to Fundamentals</div>
+          <div class="card-price">₱10,000 <span>one-time</span></div>
+          <div class="card-sub">One-time · Lifetime access</div>
+          <ul class="card-features">
+            <li>Macro &amp; fundamental framework</li>
+            <li>Central bank &amp; economic data</li>
+            <li>Geopolitics &amp; fiscal policy</li>
+            <li>PDF workbooks</li>
+          </ul>
+        </label>
+
+        <label class="program-card" id="card-masterclass" onclick="selectProgram('masterclass',35000,'Master Class','One-time · Complete all-access')">
+          <input type="radio" name="program" value="masterclass">
+          <div class="selected-check">✓</div>
+          <div class="card-badge">Most Popular</div>
+          <div class="card-name">Master Class</div>
+          <div class="card-price">₱35,000 <span>one-time</span></div>
+          <div class="card-sub">One-time · Complete all-access</div>
+          <ul class="card-features">
+            <li>Everything in all programs</li>
+            <li>Monday Live Analysis forever</li>
+            <li>Whizards Private Group</li>
+            <li>Talk directly to Mr. Joseph</li>
+            <li>Lifetime updates</li>
+          </ul>
+        </label>
+
+        <label class="program-card" id="card-ladderized" onclick="selectProgram('ladderized',35000,'Ladderized Program','Installment basis · Same all-access')">
+          <input type="radio" name="program" value="ladderized">
+          <div class="selected-check">✓</div>
+          <div class="card-name">Ladderized Program</div>
+          <div class="card-price">₱35,000 <span>installment</span></div>
+          <div class="card-sub">Installment basis · Same all-access</div>
+          <ul class="card-features">
+            <li>All Master Class content</li>
+            <li>Pay in flexible installments</li>
+            <li>Unlock modules as you pay</li>
+            <li>Full access upon completion</li>
+          </ul>
+        </label>
+
+      </div>
+
+      <div id="program-error" class="program-error">Please select a program to continue.</div>
+
+      <div class="btn-wrap btn-wrap-end">
+        <button class="btn btn-next" onclick="goStep(2)">Continue to Details →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: YOUR DETAILS -->
+    <div class="step-panel" id="step-2">
+      <div class="step-heading">
+        <h2>Your Details</h2>
+        <p>We'll use this to set up your account and contact you once your payment is verified.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group" id="fg-name">
+          <label>Full Name *</label>
+          <input type="text" id="f-name" placeholder="Juan dela Cruz">
+          <div class="field-error">Please enter your full name.</div>
+        </div>
+        <div class="form-group" id="fg-email">
+          <label>Email Address *</label>
+          <input type="email" id="f-email" placeholder="juan@email.com">
+          <div class="field-error">Please enter a valid email address.</div>
+        </div>
+        <div class="form-group" id="fg-phone">
+          <label>Phone / WhatsApp *</label>
+          <input type="tel" id="f-phone" placeholder="0917-XXX-XXXX">
+          <div class="field-error">Please enter your phone number.</div>
+        </div>
+        <div class="form-group" id="fg-facebook">
+          <label>Facebook Name or Profile Link *</label>
+          <input type="text" id="f-facebook" placeholder="Juan dela Cruz or facebook.com/juandelacruz">
+          <div class="field-error">Please enter your Facebook name or link.</div>
+        </div>
+        <div class="form-group" id="fg-experience">
+          <label>Trading Experience *</label>
+          <select id="f-experience">
+            <option value="">Select your experience level</option>
+            <option value="beginner">Complete Beginner</option>
+            <option value="less1">Less than 1 year</option>
+            <option value="1to3">1–3 years</option>
+            <option value="3to5">3–5 years</option>
+            <option value="5plus">5+ years Professional</option>
+          </select>
+          <div class="field-error">Please select your experience level.</div>
+        </div>
+        <div class="form-group" id="fg-referral">
+          <label>How did you hear about us?</label>
+          <select id="f-referral">
+            <option value="">Select an option</option>
+            <option value="facebook">Facebook</option>
+            <option value="youtube">YouTube</option>
+            <option value="referral">Friend / Referral</option>
+            <option value="google">Google</option>
+            <option value="instagram">Instagram</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group form-group-full">
+          <label>Current Trading Goals <span class="label-optional">(optional)</span></label>
+          <textarea id="f-goals" placeholder="Tell us what you want to achieve with trading..."></textarea>
+        </div>
+      </div>
+
+      <div class="btn-wrap">
+        <button class="btn btn-back" onclick="goStep(1)">← Back</button>
+        <button class="btn btn-next" onclick="goStep(3)">Continue to Payment →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: PAYMENT -->
+    <div class="step-panel" id="step-3">
+      <div class="step-heading">
+        <h2>Payment</h2>
+        <p>Send your payment and upload your proof. Our team verifies within 24 hours.</p>
+      </div>
+
+      <!-- Amount display -->
+      <div class="amount-display">
+        <div class="amount-label">Total Amount Due</div>
+        <div class="amount-big" id="pay-amount">₱35,000</div>
+        <div class="amount-prog" id="pay-prog-name">Master Class</div>
+      </div>
+
+      <!-- Payment method tabs -->
+      <div class="payment-tabs">
+        <button class="pay-tab active" onclick="switchPayTab('gcash')">💸 GCash</button>
+        <button class="pay-tab" onclick="switchPayTab('bank')">🏦 Bank Transfer</button>
+      </div>
+
+      <!-- GCASH PANEL -->
+      <div class="payment-panel active" id="panel-gcash">
+        <div class="gcash-box">
+          <div class="gcash-box-header">💚 Send payment to:</div>
+          <div class="gcash-detail">
+            <span class="gcash-detail-label">GCash Number</span>
+            <span class="gcash-detail-value">0917-XXX-XXXX</span>
+          </div>
+          <div class="gcash-detail">
+            <span class="gcash-detail-label">Account Name</span>
+            <span class="gcash-detail-value">Joseph Lejarde</span>
+          </div>
+          <div class="gcash-detail">
+            <span class="gcash-detail-label">Amount</span>
+            <span class="gcash-detail-value" id="gcash-amount-show">₱35,000</span>
+          </div>
+        </div>
+
+        <div class="qr-placeholder">
+          <span style="font-size:40px;">📱</span>
+          <span>GCash QR Code<br>Replace with actual QR image</span>
+        </div>
+
+        <div class="notes-box">
+          <p>Take a screenshot of the successful payment confirmation</p>
+          <p>Include your Full Name as reference if possible</p>
+        </div>
+
+        <div class="form-group" id="fg-gcash-upload">
+          <label>Upload GCash Payment Screenshot *</label>
+          <div class="upload-zone" id="gcash-upload-zone">
+            <input type="file" id="gcash-file" accept="image/*" onchange="handleUpload(this,'gcash')">
+            <div class="upload-icon">📤</div>
+            <div class="upload-text">Click to upload or drag &amp; drop</div>
+            <div class="upload-sub">PNG, JPG, JPEG — Max 10MB</div>
+          </div>
+          <div class="upload-preview" id="gcash-preview">
+            <img id="gcash-preview-img" src="" alt="Payment proof">
+          </div>
+          <div class="field-error">Please upload your payment screenshot.</div>
+        </div>
+      </div>
+
+      <!-- BANK TRANSFER PANEL -->
+      <div class="payment-panel" id="panel-bank">
+        <div class="bank-cards">
+          <div class="bank-card" id="bc-bpi" onclick="selectBank('bpi')">
+            <div class="bank-logo bank-logo-bpi">BPI</div>
+            <div>
+              <div class="bank-name">BPI</div>
+              <div class="bank-full">Bank of the Philippine Islands</div>
+            </div>
+          </div>
+          <div class="bank-card" id="bc-bdo" onclick="selectBank('bdo')">
+            <div class="bank-logo bank-logo-bdo">BDO</div>
+            <div>
+              <div class="bank-name">BDO</div>
+              <div class="bank-full">Banco de Oro</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-details" id="bank-details-box">
+          <div class="bank-detail-row">
+            <span class="bdl">Account Name</span>
+            <span class="bdv">Joseph Lejarde</span>
+          </div>
+          <div class="bank-detail-row">
+            <span class="bdl">Account Number</span>
+            <span class="bdv" id="bank-acct-num">—</span>
+          </div>
+          <div class="bank-detail-row">
+            <span class="bdl">Bank</span>
+            <span class="bdv" id="bank-full-name">—</span>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <p>Use your Full Name as the transfer reference</p>
+          <p>Keep the bank receipt or transaction screenshot</p>
+        </div>
+
+        <div class="form-group" id="fg-bank-upload">
+          <label>Upload Bank Transfer Receipt *</label>
+          <div class="upload-zone" id="bank-upload-zone">
+            <input type="file" id="bank-file" accept="image/*" onchange="handleUpload(this,'bank')">
+            <div class="upload-icon">📤</div>
+            <div class="upload-text">Click to upload or drag &amp; drop</div>
+            <div class="upload-sub">PNG, JPG, JPEG — Max 10MB</div>
+          </div>
+          <div class="upload-preview" id="bank-preview">
+            <img id="bank-preview-img" src="" alt="Payment proof">
+          </div>
+          <div class="field-error">Please upload your bank receipt.</div>
+        </div>
+      </div>
+
+      <div class="btn-wrap">
+        <button class="btn btn-back" onclick="goStep(2)">← Back</button>
+        <button class="btn btn-submit" onclick="submitEnrollment()">Submit Enrollment ✓</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: CONFIRMATION -->
+    <div class="step-panel" id="step-4">
+      <div class="confirm-wrap">
+        <div class="check-circle">✓</div>
+        <h2>Enrollment Submitted!</h2>
+        <div class="ref-box" id="confirm-ref">WKA-XXXXXX</div>
+        <p class="confirm-msg" id="confirm-name-msg">Thank you! We've received your enrollment request.</p>
+        <p class="confirm-msg">Our team will verify your payment within 24 hours.</p>
+        <p class="confirm-msg">You'll receive your course access code via email and Facebook message once verified.</p>
+        <div class="confirm-info-grid">
+          <div class="confirm-info-box">
+            <div class="confirm-info-label">Expected Access</div>
+            <div class="confirm-info-value">Within 1 business day</div>
+          </div>
+          <div class="confirm-info-box">
+            <div class="confirm-info-label">Program Selected</div>
+            <div class="confirm-info-value" id="confirm-prog">Master Class</div>
+          </div>
+        </div>
+        <a href="index.html" class="btn btn-next confirm-back-btn">Back to Academy</a>
+      </div>
+    </div>
+
+  </div><!-- end enroll-wrap -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 WhizKid·Academy · <a href="index.html">Home</a> · <a href="portal.html">Student Portal</a> · <a href="admin.html">Admin</a></p>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/enroll.js"></script>
+</body>
+</html>

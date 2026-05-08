@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhizKid · Academy — Learn Trading the Right Way</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <!-- TICKER STRIP -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- SEC COMPLIANCE BANNER -->
+  <div class="sec-banner">
+    <span class="sec-badge">✓ Educational Content Only</span>
+    <p class="sec-banner-text">
+      This website is operated for <strong>financial education purposes only</strong> and does not
+      constitute investment advice, financial advice, or a solicitation to buy or sell securities.
+      WhizKid Academy is not a SEC-registered investment adviser or broker-dealer. All course
+      content is intended for educational use under Philippine law.
+      <strong>Trading involves significant risk of loss.</strong>
+    </p>
+    <span class="sec-badge">⚖ SEC Philippines Compliant</span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="logo-icon">
+        <div class="candles-wrap">
+          <div class="cd ca">
+            <div class="wk" style="height:3px"></div>
+            <div class="bd"></div>
+            <div class="wk" style="height:2px"></div>
+          </div>
+          <div class="cd cb">
+            <div class="wk" style="height:5px"></div>
+            <div class="bd"></div>
+            <div class="wk" style="height:2px"></div>
+          </div>
+          <div class="cd cc">
+            <div class="wk" style="height:3px"></div>
+            <div class="bd"></div>
+            <div class="wk" style="height:2px"></div>
+          </div>
+        </div>
+        <div class="arrow-mini"></div>
+      </div>
+      <div class="logo-words">
+        <div class="logo-wm">
+          <span class="lw-wk">WHIZKID</span><span class="lw-dot">·</span><span class="lw-ac">ACADEMY</span>
+        </div>
+        <div class="logo-sub"><span class="sg">Learn</span> <span class="sv">Trading</span></div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="portal.html">Student Portal</a></li>
+      <li><a href="enroll.html" class="nav-cta">Enroll Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO WITH SLIDESHOW -->
+  <section class="hero">
+    <div class="slide-bg" id="slideBg">
+      <div class="slide active" style="background-image:url('1.jpg')"></div>
+      <div class="slide" style="background-image:url('2.jpg')"></div>
+      <div class="slide" style="background-image:url('4.jpg')"></div>
+      <div class="slide" style="background-image:url('5.png')"></div>
+      <div class="slide" style="background-image:url('6.jpeg')"></div>
+    </div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-content">
+      <div class="hero-pill">Macroeconomics · Fundamentals · Live Analysis</div>
+      <h1>
+        Learn Trading<br>
+        <em>the Right Way</em><br>
+        <strong>— Not the Hard Way</strong>
+      </h1>
+      <p class="hero-sub">
+        Master macroeconomics, geopolitics, central bank policy, and real-world market fundamentals
+        through a structured curriculum designed by an educator with significant early experience
+        in the financial markets.
+      </p>
+      <div class="hero-monday">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span><strong>Every Monday:</strong> Live Weekly Market Analysis — know what moves the market before the week begins.</span>
+      </div>
+      <div class="hero-btns">
+        <a href="enroll.html" class="btn-p">Enroll Now</a>
+        <a href="#booking" class="btn-s">Book a Free Call</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-n">1,000+</div>
+        <div class="hstat-l">Students Enrolled</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">Early</div>
+        <div class="hstat-l">Started Trading Young</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">52×</div>
+        <div class="hstat-l">Monday Analyses/Year</div>
+      </div>
+    </div>
+
+    <div class="slide-dots" id="slideDots"></div>
+  </section>
+
+  <!-- MARKET DATA WIDGETS -->
+  <div class="mkt-sec">
+    <div class="sec-lbl">Live Market Data</div>
+    <div class="mkt-grid" id="mktGrid"></div>
+  </div>
+
+  <!-- MONDAY BANNER -->
+  <div class="monday-banner">
+    <div class="mon-icon">📅</div>
+    <div class="mon-text">
+      <h3>Weekly Market Analysis — <span>Every Monday</span></h3>
+      <p>
+        Start every trading week with clarity. Every Monday, Mr. Joseph walks through key macro
+        events, currency pair setups, and economic calendar highlights — so you always trade with
+        context, not confusion.
+      </p>
+    </div>
+    <div class="mon-badge">
+      <div class="mon-day">MON</div>
+      <div class="mon-lbl">Weekly Session</div>
+    </div>
+  </div>
+
+  <div style="height:5rem;"></div>
+
+  <!-- CURRICULUM -->
+  <section class="sec cur-sec" id="curriculum">
+    <span class="sec-tag">What You'll Learn</span>
+    <h2 class="sec-h">A Complete Macro &amp;<br><em>Fundamental Framework</em></h2>
+    <p class="sec-sub">
+      Six core pillars that form the foundation of professional, disciplined trading —
+      the way institutions actually trade.
+    </p>
+    <div class="cur-grid">
+      <div class="cur-card">
+        <div class="cur-icon">🏦</div>
+        <div class="cur-title">Central Bank Policy</div>
+        <p class="cur-desc">
+          Understand how the Fed, ECB, and BOJ decisions shape currency strength, interest rate
+          differentials, and long-term market direction.
+        </p>
+      </div>
+      <div class="cur-card">
+        <div class="cur-icon">📊</div>
+        <div class="cur-title">Macroeconomics</div>
+        <p class="cur-desc">
+          Decode GDP, inflation, employment reports, and economic cycles to develop the analytical
+          skills needed to understand market movements and make more informed decisions.
+        </p>
+      </div>
+      <div class="cur-card">
+        <div class="cur-icon">🌍</div>
+        <div class="cur-title">Geopolitics</div>
+        <p class="cur-desc">
+          Learn how global events, trade wars, elections, and sanctions create trading opportunities
+          in forex and commodity markets.
+        </p>
+      </div>
+      <div class="cur-card">
+        <div class="cur-icon">🏛️</div>
+        <div class="cur-title">Fiscal Policy</div>
+        <p class="cur-desc">
+          Understand government spending, debt levels, and fiscal stimulus — and how these macro
+          levers affect currency valuation.
+        </p>
+      </div>
+      <div class="cur-card">
+        <div class="cur-icon">💱</div>
+        <div class="cur-title">Major Currency Pairs</div>
+        <p class="cur-desc">
+          Deep-dive educational analysis on EUR/USD, GBP/USD, USD/JPY, and more — covering
+          fundamental drivers, correlations, and analytical frameworks for each pair.
+        </p>
+      </div>
+      <div class="cur-card gold-card">
+        <div class="cur-icon gold">🎯</div>
+        <div class="cur-title gold">Monday Live Analysis</div>
+        <p class="cur-desc">
+          Every Monday, access a live market breakdown covering the week's major events, pair
+          setups, and macro themes. Exclusively for enrolled students.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PORTFOLIO ANALYTICS PREVIEW -->
+  <div class="port-sec">
+    <div class="port-layout">
+      <div>
+        <span class="sec-tag">What You'll Learn to Read</span>
+        <h2 class="sec-h">Trade Like<br><em>a Data Analyst</em></h2>
+        <p class="sec-sub">
+          Interpret real economic dashboards, central bank statements, and currency strength
+          matrices — the same tools institutional traders use daily.
+        </p>
+        <div class="port-stats">
+          <div class="pstat">
+            <div class="pstat-lbl">Framework Pillars</div>
+            <div class="pstat-val v">6</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-lbl">Data Sources</div>
+            <div class="pstat-val gold">12+</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-lbl">Pairs Covered</div>
+            <div class="pstat-val g">28</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-lbl">Live Sessions/yr</div>
+            <div class="pstat-val v">52</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <div class="chart-hdr">
+          <div>
+            <div class="chart-ti">EUR/USD — Macro Divergence Model</div>
+            <div class="chart-nt">Fed vs ECB rate differential + CPI trend overlay</div>
+          </div>
+          <div class="ctabs">
+            <button class="ctab on" onclick="switchTab(this,'1W')">1W</button>
+            <button class="ctab" onclick="switchTab(this,'1M')">1M</button>
+            <button class="ctab" onclick="switchTab(this,'3M')">3M</button>
+          </div>
+        </div>
+        <canvas id="mainChart" style="width:100%;height:190px;"></canvas>
+        <div class="chart-metrics">
+          <div class="cm">
+            <div class="cm-l">Fed Rate</div>
+            <div class="cm-v" style="color:#f66">5.50%</div>
+          </div>
+          <div class="cm">
+            <div class="cm-l">ECB Rate</div>
+            <div class="cm-v" style="color:var(--green)">4.25%</div>
+          </div>
+          <div class="cm">
+            <div class="cm-l">Bias</div>
+            <div class="cm-v" style="color:var(--gold)">NEUTRAL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT JOSEPH -->
+  <section class="sec" id="about">
+    <div class="about-inner">
+      <div class="about-visual">
+        <!-- Photo slideshow: cycles every 3 seconds -->
+        <div class="about-photo" id="aboutPhotos">
+          <div class="photo-slide active">
+            <img src="public/whizprofile.png" alt="Joseph J. Lejarde">
+          </div>
+          <div class="photo-slide">
+            <img src="profile1.jpg" alt="Joseph J. Lejarde — Formal">
+          </div>
+        </div>
+        <div class="ab-badge">
+          <div class="ab-num">1,000+</div>
+          <div class="ab-lbl">Students Trained</div>
+        </div>
+        <div class="ab-glow"></div>
+      </div>
+
+      <div class="about-content">
+        <span class="sec-tag">About Your Mentor</span>
+        <h2 class="about-name">Joseph J. Lejarde</h2>
+        <p class="about-role">CSS · CTP · CCE · CTA &nbsp;|&nbsp; Founder of WhizKid Academy</p>
+
+        <!-- Professional Credentials -->
+        <div class="cred-badges">
+          <span class="cred-badge"><span class="cb-icon">🎓</span>CTA — Certified Technical Analyst</span>
+          <span class="cred-badge"><span class="cb-icon">🏦</span>CTP — Certified Treasury Professional</span>
+          <span class="cred-badge"><span class="cb-icon">📜</span>CSS — Certified Securities Specialist</span>
+          <span class="cred-badge"><span class="cb-icon">🔗</span>CCE — Certified Cryptocurrency Expert</span>
+        </div>
+
+        <!-- Meta info row -->
+        <div class="cred-row-meta">
+          <span class="cred-meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+            Asian Institute of Management
+          </span>
+          <span class="cred-meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+            Founded WhizKid Academy, March 2019
+          </span>
+        </div>
+
+        <!-- Award badge -->
+        <div style="margin-bottom:18px;">
+          <span class="award-badge">🏆 Featured Speaker — Traders Fair &amp; Awards 2024, Davao</span>
+        </div>
+
+        <p class="about-p">
+          Joseph J. Lejarde is a multi-certified financial educator and macro strategist. He holds
+          the Certified Technical Analyst (CTA) designation from the Society of Technical Analysts
+          (2022), the Certified Treasury Professional (CTP) from the Ateneo Graduate School of
+          Business in collaboration with the Bankers Association of the Philippines (2023), the
+          Certified Securities Specialist (CSS) from Ateneo (2024), and the Certified
+          Cryptocurrency Expert (CCE) from Blockchain Council (2025).
+        </p>
+        <p class="about-p">
+          As the founder of WhizKid Academy (established March 2019), Joseph has mentored over
+          <strong style="color:var(--text)">1,000+ students worldwide</strong>. With extensive
+          experience as a financial educator at various forex brokers and as a currency trader,
+          his curriculum focuses on the analytical <em style="color:var(--text)">"why"</em>
+          behind market movements. His expertise covers:
+        </p>
+        <ul class="about-list">
+          <li>Central Bank Policy &amp; Monetary Frameworks</li>
+          <li>Global Geopolitical Analysis &amp; Risk Assessment</li>
+          <li>Fiscal Policy Impact on Asset Classes</li>
+          <li>Equities, Foreign Exchange &amp; Cryptocurrency Markets</li>
+          <li>Real-time Macroeconomic Application &amp; Framework</li>
+        </ul>
+        <p class="about-p">
+          Joseph hosts weekly live educational sessions providing students with a structured
+          environment to learn professional market research and analytical techniques. All content
+          is delivered as <strong style="color:rgba(255,255,255,.85)">financial education only</strong>
+          and does not constitute investment advice.
+        </p>
+
+        <div class="about-tags">
+          <span class="atag">CTA — Technical Analyst</span>
+          <span class="atag">CTP — Treasury Professional</span>
+          <span class="atag">CSS — Securities Specialist</span>
+          <span class="atag">CCE — Crypto Expert</span>
+          <span class="atag">1,000+ Students</span>
+          <span class="atag">AIM Alumni</span>
+          <span class="atag">Traders Fair Speaker</span>
+        </div>
+
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <a href="enroll.html" class="btn-p">Book a Free Call →</a>
+          <a href="https://www.linkedin.com/in/josephlejardewhizkid/" target="_blank" rel="noopener" class="btn-linkedin">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#78b0e0">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            View LinkedIn Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="stats-row">
+      <div>
+        <div class="sn">1,000+</div>
+        <div class="sd">Students enrolled worldwide</div>
+      </div>
+      <div>
+        <div class="sn">52×</div>
+        <div class="sd">Monday live sessions per year</div>
+      </div>
+      <div>
+        <div class="sn">6</div>
+        <div class="sd">Core framework pillars</div>
+      </div>
+      <div>
+        <div class="sn">25–30</div>
+        <div class="sd">Comprehensive course modules</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <section class="sec" id="pricing">
+    <div class="sec-center" style="margin-bottom:48px;">
+      <span class="sec-tag">Join the Academy</span>
+      <h2 class="sec-h">Start Learning.<br><em>Trade with Clarity.</em></h2>
+      <p class="sec-sub" style="margin:0 auto;">
+        Everything you need to understand the markets — structured financial education designed
+        to sharpen your analytical thinking.
+      </p>
+    </div>
+
+    <div class="price-grid">
+      <!-- Starter -->
+      <div class="pc">
+        <div class="tier-pill tier-bg">Beginner</div>
+        <div class="pc-name">Starter Trading Program</div>
+        <div class="pc-price gg">₱5,000</div>
+        <div class="pc-note">One-time payment · Lifetime access</div>
+        <ul class="pc-feats">
+          <li><span class="chk">✓</span>Trading fundamentals from scratch</li>
+          <li><span class="chk">✓</span>How to read charts &amp; price action</li>
+          <li><span class="chk">✓</span>Risk &amp; money management basics</li>
+          <li><span class="chk">✓</span>PDF workbooks included</li>
+        </ul>
+        <a href="enroll.html" class="btn-enroll-c btn-e-g">Enroll Now →</a>
+      </div>
+
+      <!-- Fundamentals -->
+      <div class="pc">
+        <div class="tier-pill tier-im">Intermediate</div>
+        <div class="pc-name">Introduction to Fundamentals</div>
+        <div class="pc-price vv">₱10,000</div>
+        <div class="pc-note">One-time payment · Lifetime access</div>
+        <ul class="pc-feats">
+          <li><span class="chk">✓</span>Macro &amp; fundamental framework</li>
+          <li><span class="chk">✓</span>Central bank &amp; economic data</li>
+          <li><span class="chk">✓</span>Geopolitics &amp; fiscal policy</li>
+          <li><span class="chk">✓</span>PDF workbooks included</li>
+        </ul>
+        <a href="enroll.html" class="btn-enroll-c btn-e-v">Enroll Now →</a>
+      </div>
+
+      <!-- Master Class (featured) -->
+      <div class="pc hot">
+        <div class="pc-hot-badge">ALL ACCESS</div>
+        <div class="tier-pill tier-av">Advanced</div>
+        <div class="pc-name">Master Class</div>
+        <div class="pc-price aa">₱35,000</div>
+        <div class="pc-note">One-time payment · Complete all-access</div>
+        <ul class="pc-feats">
+          <li><span class="chk">✓</span>25–30 comprehensive course modules</li>
+          <li><span class="chk">✓</span>Monday Live Analysis — forever</li>
+          <li><span class="chk">✓</span>Access to Whizards Private Group</li>
+          <li><span class="chk">✓</span>Talk directly to Mr. Joseph</li>
+          <li><span class="chk">✓</span>Lifetime module updates</li>
+        </ul>
+        <a href="enroll.html" class="btn-enroll-c btn-e-gold">Enroll Now →</a>
+      </div>
+
+      <!-- Ladderized -->
+      <div class="pc">
+        <div class="tier-pill tier-fl">Flexible</div>
+        <div class="pc-name">Ladderized Program</div>
+        <div class="pc-price gg">₱35,000</div>
+        <div class="pc-note">Installment basis · Same all-access content</div>
+        <ul class="pc-feats">
+          <li><span class="chk">✓</span>All Master Class content</li>
+          <li><span class="chk">✓</span>Pay in flexible installments</li>
+          <li><span class="chk">✓</span>Unlock modules as you pay</li>
+          <li><span class="chk">✓</span>Full access upon completion</li>
+        </ul>
+        <a href="enroll.html" class="btn-enroll-c btn-e-gl">Enroll Now →</a>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:12.5px;color:var(--text-muted);margin-top:20px;">
+      1,000+ students already enrolled worldwide · For pricing inquiries, reach out directly.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EDUCATIONAL RESOURCES -->
+  <section class="sec">
+    <div class="sec-center" style="margin-bottom:44px;">
+      <span class="sec-tag">Resources</span>
+      <h2 class="sec-h">Everything You Need to Succeed</h2>
+      <p class="sec-sub" style="margin:0 auto;">
+        Every program ships with structured resources so you can study, practice, and apply
+        the framework independently.
+      </p>
+    </div>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-ico">📘</div>
+        <h4>25–30 Course Modules</h4>
+        <p>Comprehensive structured modules covering macro, fundamentals, and institutional framework — all in one place.</p>
+        <div class="res-tag">All Programs</div>
+      </div>
+      <div class="res-card">
+        <div class="res-ico">🎙️</div>
+        <h4>Monday Live Recordings</h4>
+        <p>Every Monday session is recorded and archived. Replay any analysis on demand, with unlimited access.</p>
+        <div class="res-tag">Master Class</div>
+      </div>
+      <div class="res-card">
+        <div class="res-ico">👥</div>
+        <h4>Whizards Private Group</h4>
+        <p>Access to the exclusive community for enrolled students only — connect, share analysis, and stay accountable.</p>
+        <div class="res-tag">Master Class</div>
+      </div>
+      <div class="res-card">
+        <div class="res-ico">📊</div>
+        <h4>PDF Workbooks</h4>
+        <p>Structured fill-in exercises, trade planning templates, and reference sheets to reinforce every module.</p>
+        <div class="res-tag">All Programs</div>
+      </div>
+      <div class="res-card">
+        <div class="res-ico">💬</div>
+        <h4>Direct Access to Joseph</h4>
+        <p>Ask questions and get feedback from Joseph himself — not an assistant, not a bot, directly from the educator.</p>
+        <div class="res-tag">Master Class</div>
+      </div>
+      <div class="res-card">
+        <div class="res-ico">🔄</div>
+        <h4>Lifetime Module Updates</h4>
+        <p>Markets evolve — so does the curriculum. All enrolled students receive lifetime updates to course content.</p>
+        <div class="res-tag">All Programs</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- BOOKING / FREE DISCOVERY CALL -->
+  <section class="sec" id="booking">
+    <div class="booking-inner">
+      <div class="booking-info">
+        <span class="sec-tag">Free Discovery Call</span>
+        <h2 class="sec-h">Talk to <em>Joseph</em><br>Before You Decide</h2>
+        <p>
+          Not sure if this course is right for you? Book a free 15-minute video call with
+          Mr. Joseph Lejarde and get your questions answered directly — no pressure, just clarity.
+        </p>
+        <div class="perks">
+          <div class="perk">
+            <div class="perk-ico">📹</div>
+            <div class="perk-text">
+              <strong>Video Call with Joseph</strong>
+              <span>One-on-one session via Zoom or Google Meet</span>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-ico">⏱️</div>
+            <div class="perk-text">
+              <strong>15–30 Minutes, Totally Free</strong>
+              <span>Get honest answers about the course and your trading journey</span>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-ico">📅</div>
+            <div class="perk-text">
+              <strong>Flexible Scheduling</strong>
+              <span>Choose a time that works for you — mornings or evenings available</span>
+            </div>
+          </div>
+          <div class="perk" style="border-color:rgba(74,144,217,.25);background:rgba(74,144,217,.04);">
+            <div class="perk-ico" style="background:rgba(74,144,217,.15);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#4A90D9">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </div>
+            <div class="perk-text">
+              <strong>Find us on Facebook</strong>
+              <span>
+                Message or follow us at
+                <a href="https://www.facebook.com/share/1aFxdxb5BU/" target="_blank"
+                   style="color:#4A90D9;text-decoration:none;font-weight:600;">WhizKid Trader Academy</a>
+                for updates &amp; announcements
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form">
+        <span class="sec-tag" style="margin-bottom:16px;display:block;">Book Your Free Call</span>
+        <div class="fg">
+          <label>Full Name</label>
+          <input type="text" id="bkName" placeholder="Your full name">
+        </div>
+        <div class="fg">
+          <label style="display:flex;align-items:center;gap:5px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#4A90D9">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+            Facebook Name or Profile Link
+          </label>
+          <input type="text" id="bkFb" placeholder="e.g. Joseph Lejarde or facebook.com/yourprofile">
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Email</label>
+            <input type="email" id="bkEmail" placeholder="email@example.com">
+          </div>
+          <div class="fg">
+            <label>Phone / WhatsApp</label>
+            <input type="tel" id="bkPhone" placeholder="+63 9XX XXX XXXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Preferred Date</label>
+            <input type="date" id="bkDate">
+          </div>
+          <div class="fg">
+            <label>Preferred Time</label>
+            <select id="bkTime">
+              <option value="">Select time</option>
+              <option>8:00 AM</option>
+              <option>9:00 AM</option>
+              <option>10:00 AM</option>
+              <option>2:00 PM</option>
+              <option>3:00 PM</option>
+              <option>4:00 PM</option>
+              <option>7:00 PM</option>
+              <option>8:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Your Trading Experience</label>
+          <select id="bkExp">
+            <option value="">Select level</option>
+            <option>Complete Beginner</option>
+            <option>Some Experience (less than 1 year)</option>
+            <option>Intermediate (1–3 years)</option>
+            <option>Advanced (3+ years)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>What do you want to learn? (Optional)</label>
+          <textarea id="bkMsg" placeholder="Tell Joseph what you're hoping to achieve..."></textarea>
+        </div>
+        <button class="btn-book" id="bkBtn">Book My Free Call</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-logo">
+      <div class="logo-icon" style="width:32px;height:32px;border-radius:9px;">
+        <div class="candles-wrap" style="height:16px;">
+          <div class="cd ca">
+            <div class="wk" style="height:2px"></div>
+            <div class="bd" style="width:4px;height:5px"></div>
+            <div class="wk" style="height:1px"></div>
+          </div>
+          <div class="cd cb">
+            <div class="wk" style="height:3px"></div>
+            <div class="bd" style="width:4px;height:8px"></div>
+            <div class="wk" style="height:1px"></div>
+          </div>
+          <div class="cd cc">
+            <div class="wk" style="height:2px"></div>
+            <div class="bd" style="width:4px;height:12px"></div>
+            <div class="wk" style="height:1px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-wm">
+        <span class="lw-wk" style="font-size:16px;">WHIZKID</span>
+        <span class="lw-dot" style="font-size:16px;">·</span>
+        <span class="lw-ac" style="font-size:16px;">ACADEMY</span>
+      </div>
+    </div>
+
+    <div class="foot-links">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#about">About</a>
+      <a href="#pricing">Pricing</a>
+      <a href="enroll.html">Enroll</a>
+      <a href="portal.html">Student Portal</a>
+      <a href="https://www.facebook.com/share/1aFxdxb5BU/" target="_blank">Facebook</a>
+      <a href="https://www.linkedin.com/in/josephlejardewhizkid/" target="_blank">LinkedIn</a>
+    </div>
+
+    <!-- Legal Disclaimer -->
+    <div class="disclaimer-box">
+      <span class="disc-title">⚠ Important Legal Disclaimer — Please Read</span>
+      <p class="disc-body">
+        <strong style="color:rgba(255,255,255,.8);">Educational Purposes Only.</strong>
+        WhizKid Academy provides financial education and market analysis content for informational
+        and educational purposes only. Nothing on this website constitutes financial advice,
+        investment advice, trading advice, or any other type of advice. WhizKid Academy is
+        <strong style="color:rgba(255,255,255,.8);">not registered as an investment adviser,
+        broker-dealer, or securities dealer</strong> with the Philippine Securities and Exchange
+        Commission (SEC) under Republic Act No. 8799 (Securities Regulation Code).
+      </p>
+      <p class="disc-body" style="margin-top:10px;">
+        <strong style="color:rgba(255,255,255,.8);">Risk Warning.</strong>
+        Trading in foreign exchange (forex), equities, derivatives, and cryptocurrencies involves
+        a <strong style="color:rgba(255,255,255,.8);">high level of risk</strong> and may not be
+        suitable for all individuals. You may lose some or all of your invested capital. Past
+        performance of any analysis, methodology, or educational content discussed is
+        <strong style="color:rgba(255,255,255,.8);">not indicative of future results</strong>.
+        You should never invest money you cannot afford to lose.
+      </p>
+      <p class="disc-body" style="margin-top:10px;">
+        <strong style="color:rgba(255,255,255,.8);">Cryptocurrency.</strong>
+        Cryptocurrency assets are subject to high market volatility and regulatory uncertainty.
+        SEC Memorandum Circular No. 14, Series of 2021 regulates Crypto Asset Service Providers
+        (CASPs) in the Philippines. Any cryptocurrency content provided by WhizKid Academy is
+        strictly for educational purposes and does not constitute a solicitation to buy, sell,
+        or hold any digital asset.
+      </p>
+      <p class="disc-body" style="margin-top:10px;">
+        For investment advice, please consult a licensed financial professional registered with
+        the Philippine SEC. Always conduct your own due diligence before making any financial decision.
+      </p>
+    </div>
+
+    <!-- SEC Compliance Badges -->
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+      <span class="sec-badge">⚖ Educational Content — RA 8799 SRC</span>
+      <span class="sec-badge">📋 SEC Philippines Compliant</span>
+      <span class="sec-badge">🔗 CASP Disclaimer Included</span>
+    </div>
+
+    <p class="foot-note">
+      © 2025 WhizKid Academy. All rights reserved. |
+      Joseph J. Lejarde, CSS, CTP, CCE, CTA — Financial Educator
+    </p>
+  </footer>
+
+  <!-- ENROLL MODAL -->
+  <div class="modal-overlay" id="enrollModal">
+    <div class="modal">
+      <button class="modal-close" onclick="document.getElementById('enrollModal').classList.remove('open')">×</button>
+      <h3>Enroll in WhizKid<br>Trader Academy</h3>
+      <p>Complete your enrollment by reaching out directly or booking a call with Joseph.</p>
+      <a href="#booking" class="btn-p" style="display:block;text-align:center;"
+         onclick="document.getElementById('enrollModal').classList.remove('open')">
+        Book a Free Intro Call
+      </a>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/ticker.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

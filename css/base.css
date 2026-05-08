@@ -1,0 +1,104 @@
+/* ═══════════════════════════════════════════════════════════════
+   WhizKid Academy — Base Styles
+   Reset · Body · Typography · Layout utilities · Animations
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.75;
+  font-size: 16px;
+  min-height: 100vh;
+}
+
+/* ── Section layout ── */
+.sec {
+  padding: var(--sec-pad);
+}
+
+.sec-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sec-h {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 300;
+  line-height: 1.12;
+  margin-bottom: 14px;
+}
+
+.sec-h em {
+  font-style: italic;
+  color: var(--violet-light);
+}
+
+.sec-sub {
+  font-size: 16px;
+  color: var(--text-sec);
+  line-height: 1.72;
+  max-width: 560px;
+}
+
+.sec-center {
+  text-align: center;
+}
+
+.sec-center .sec-sub {
+  margin: 0 auto;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.25), transparent);
+  margin: 0 5%;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes tick {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 210, 100, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 210, 100, 0); }
+}

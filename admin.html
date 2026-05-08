@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — WhizKid Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ADMIN LOGIN -->
+  <div id="admin-login">
+    <div class="login-card">
+      <div class="login-logo-wrap">
+        <a class="nav-logo" href="index.html">
+          <div class="logo-icon">
+            <div class="candles-wrap">
+              <div class="cd ca">
+                <div class="wk" style="height:3px"></div>
+                <div class="bd"></div>
+                <div class="wk" style="height:2px"></div>
+              </div>
+              <div class="cd cb">
+                <div class="wk" style="height:5px"></div>
+                <div class="bd"></div>
+                <div class="wk" style="height:2px"></div>
+              </div>
+              <div class="cd cc">
+                <div class="wk" style="height:3px"></div>
+                <div class="bd"></div>
+                <div class="wk" style="height:2px"></div>
+              </div>
+            </div>
+            <div class="arrow-mini"></div>
+          </div>
+          <div class="logo-words">
+            <div class="logo-wm">
+              <span class="lw-wk">WHIZKID</span><span class="lw-dot">·</span><span class="lw-ac">ACADEMY</span>
+            </div>
+            <div class="logo-sub"><span class="sg">Learn</span> <span class="sv">Trading</span></div>
+          </div>
+        </a>
+      </div>
+      <div class="admin-badge">Admin Panel</div>
+      <h2 class="login-title">Admin Login</h2>
+      <div class="login-form">
+        <input class="login-input" type="text" id="admin-user" placeholder="Username" autocomplete="off">
+        <input class="login-input" type="password" id="admin-pass" placeholder="Password" autocomplete="off">
+        <div class="login-error" id="admin-error">Invalid username or password.</div>
+        <button class="btn-login" onclick="adminLogin()">Login to Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN APP -->
+  <div id="admin-app">
+    <div class="sidebar-overlay" id="admin-overlay" onclick="closeAdminSidebar()"></div>
+    <div class="admin-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar" id="admin-sidebar">
+        <div class="admin-sidebar-logo">
+          <a class="nav-logo" href="index.html">
+            <div class="logo-icon">
+              <div class="candles-wrap">
+                <div class="cd ca">
+                  <div class="wk" style="height:3px"></div>
+                  <div class="bd"></div>
+                  <div class="wk" style="height:2px"></div>
+                </div>
+                <div class="cd cb">
+                  <div class="wk" style="height:5px"></div>
+                  <div class="bd"></div>
+                  <div class="wk" style="height:2px"></div>
+                </div>
+                <div class="cd cc">
+                  <div class="wk" style="height:3px"></div>
+                  <div class="bd"></div>
+                  <div class="wk" style="height:2px"></div>
+                </div>
+              </div>
+              <div class="arrow-mini"></div>
+            </div>
+            <div class="logo-words">
+              <div class="logo-wm">
+                <span class="lw-wk">WHIZKID</span><span class="lw-dot">·</span><span class="lw-ac">ACADEMY</span>
+              </div>
+              <div class="logo-sub"><span class="sg">Learn</span> <span class="sv">Trading</span></div>
+            </div>
+          </a>
+        </div>
+
+        <ul class="admin-nav">
+          <li>
+            <a href="#" class="active" id="tab-link-enrollments" onclick="showTab('enrollments',this)">
+              <span class="admin-nav-icon">📋</span>Enrollments
+              <span class="tab-count yellow" id="tc-pending">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="tab-link-content" onclick="showTab('content',this)">
+              <span class="admin-nav-icon">🎬</span>Course Content
+            </a>
+          </li>
+          <li>
+            <a href="#" id="tab-link-codes" onclick="showTab('codes',this)">
+              <span class="admin-nav-icon">🔑</span>Access Codes
+              <span class="tab-count green" id="tc-codes">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="tab-link-sessions" onclick="showTab('sessions',this)">
+              <span class="admin-nav-icon">📅</span>Monday Sessions
+            </a>
+          </li>
+        </ul>
+
+        <button class="admin-logout-btn" onclick="adminLogout()"><span>🚪</span>Logout</button>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="admin-main">
+
+        <div class="admin-topbar">
+          <div class="admin-topbar-left">
+            <button class="mobile-menu-btn" onclick="openAdminSidebar()">☰</button>
+            <div>
+              <h1 id="tab-heading">Enrollments</h1>
+              <p id="tab-subhead">Manage student enrollment requests</p>
+            </div>
+          </div>
+          <div class="admin-topbar-links">
+            <a href="enroll.html">Enroll Page</a>
+            <a href="portal.html">Portal</a>
+            <a href="index.html">Home</a>
+          </div>
+        </div>
+
+        <div class="admin-content">
+
+          <!-- TAB: ENROLLMENTS -->
+          <div class="tab-panel active" id="tab-enrollments">
+            <div class="stat-grid">
+              <div class="stat-card">
+                <div class="stat-label">Total Enrollments</div>
+                <div class="stat-value stat-violet" id="stat-total">0</div>
+                <div class="stat-sub">All time</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Pending</div>
+                <div class="stat-value stat-gold" id="stat-pending">0</div>
+                <div class="stat-sub">Awaiting verification</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Verified</div>
+                <div class="stat-value stat-green" id="stat-verified">0</div>
+                <div class="stat-sub">Access granted</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Est. Revenue</div>
+                <div class="stat-value stat-gold stat-revenue" id="stat-revenue">₱0</div>
+                <div class="stat-sub">Verified only</div>
+              </div>
+            </div>
+
+            <div class="filter-tabs">
+              <button class="filter-tab active" onclick="filterEnrollments('all',this)">All <span id="fc-all">0</span></button>
+              <button class="filter-tab" onclick="filterEnrollments('pending',this)">Pending <span id="fc-pending">0</span></button>
+              <button class="filter-tab" onclick="filterEnrollments('verified',this)">Verified <span id="fc-verified">0</span></button>
+              <button class="filter-tab" onclick="filterEnrollments('rejected',this)">Rejected <span id="fc-rejected">0</span></button>
+            </div>
+
+            <div class="enroll-list" id="enroll-list"></div>
+          </div>
+
+          <!-- TAB: COURSE CONTENT -->
+          <div class="tab-panel" id="tab-content">
+            <button class="btn-add" onclick="openAddModule()">+ Add Module</button>
+
+            <!-- Add Module Form -->
+            <div id="add-module-form-wrap" class="add-module-form-wrap">
+              <div class="add-module-heading">Add New Module</div>
+              <div class="edit-grid">
+                <div class="edit-group">
+                  <label>Title *</label>
+                  <input type="text" id="add-title" placeholder="Module title">
+                </div>
+                <div class="edit-group">
+                  <label>Duration</label>
+                  <input type="text" id="add-dur" placeholder="e.g. 45 min">
+                </div>
+                <div class="edit-group">
+                  <label>Tier</label>
+                  <select id="add-tier">
+                    <option value="starter">Starter</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="master">Master</option>
+                  </select>
+                </div>
+                <div class="edit-group">
+                  <label>YouTube URL</label>
+                  <input type="text" id="add-video" placeholder="https://youtube.com/watch?v=...">
+                  <div class="url-helper">Paste any YouTube URL — we'll convert it to embed format</div>
+                </div>
+                <div class="edit-group edit-group-full">
+                  <label>Description</label>
+                  <textarea id="add-desc" placeholder="Module description..."></textarea>
+                </div>
+              </div>
+              <div class="edit-actions">
+                <button class="btn-save" onclick="saveNewModule()">Save Module</button>
+                <button class="btn-cancel" onclick="closeAddModule()">Cancel</button>
+              </div>
+            </div>
+
+            <div class="module-admin-list" id="module-admin-list"></div>
+          </div>
+
+          <!-- TAB: ACCESS CODES -->
+          <div class="tab-panel" id="tab-codes">
+            <div class="codes-table-wrap">
+              <table class="codes-table" id="codes-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Tier</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="codes-tbody"></tbody>
+              </table>
+            </div>
+            <div class="empty-state" id="codes-empty" style="display:none;">
+              <div class="empty-icon">🔑</div>
+              <div class="empty-text">No access codes yet. Verify an enrollment to generate one.</div>
+            </div>
+          </div>
+
+          <!-- TAB: MONDAY SESSIONS -->
+          <div class="tab-panel" id="tab-sessions">
+            <button class="btn-add-session" onclick="toggleAddSession()">+ Add Monday Session</button>
+
+            <div class="add-session-form" id="add-session-form">
+              <div class="edit-grid">
+                <div class="edit-group">
+                  <label>Session Title *</label>
+                  <input type="text" id="sess-title" placeholder="Weekly Market Analysis — Week 1">
+                </div>
+                <div class="edit-group">
+                  <label>Date *</label>
+                  <input type="date" id="sess-date">
+                </div>
+                <div class="edit-group edit-group-full">
+                  <label>YouTube Recording URL (optional)</label>
+                  <input type="text" id="sess-video" placeholder="https://youtube.com/watch?v=...">
+                </div>
+              </div>
+              <div class="edit-actions">
+                <button class="btn-save" onclick="saveSession()">Save Session</button>
+                <button class="btn-cancel" onclick="toggleAddSession()">Cancel</button>
+              </div>
+            </div>
+
+            <div class="sessions-list" id="sessions-list"></div>
+
+            <div class="empty-state" id="sessions-empty" style="display:none;">
+              <div class="empty-icon">📅</div>
+              <div class="empty-text">No sessions added yet.</div>
+            </div>
+          </div>
+
+        </div><!-- end admin-content -->
+      </div><!-- end admin-main -->
+    </div><!-- end admin-layout -->
+  </div><!-- end admin-app -->
+
+  <!-- ACCESS CODE MODAL -->
+  <div class="modal-overlay" id="code-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeCodeModal()">✕</button>
+      <h3>Access Code Generated</h3>
+      <p id="code-modal-msg">Send this code to the student via email or Facebook message.</p>
+      <div class="modal-code-box">
+        <div class="modal-code-val" id="modal-code-val">——————</div>
+        <div class="modal-code-label">Student Access Code</div>
+      </div>
+      <div id="modal-student-info" class="modal-student-info"></div>
+      <div class="modal-actions">
+        <button class="btn-modal-copy" onclick="copyModalCode()">Copy Code</button>
+        <button class="btn-modal-close" onclick="closeCodeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROOF MODAL -->
+  <div class="modal-overlay" id="proof-modal">
+    <div class="modal modal-proof">
+      <button class="modal-close" onclick="closeProofModal()">✕</button>
+      <h3>Payment Proof</h3>
+      <img class="proof-modal-img" id="proof-modal-img" src="" alt="Payment proof">
+      <div class="modal-proof-footer">
+        <button class="btn-modal-close" onclick="closeProofModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

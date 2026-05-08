@@ -1,0 +1,43 @@
+/* ═══════════════════════════════════════════════════════════════
+   WhizKid Academy — Design Tokens
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Brand Colors ── */
+  --violet:        #a855f7;
+  --violet-deep:   #7c3aed;
+  --violet-light:  #d8b4fe;
+  --green:         #00d264;
+  --green-dark:    #00a84f;
+  --green-light:   #6effa8;
+  --gold:          #f8c14a;
+
+  /* ── Backgrounds ── */
+  --bg:            #0a0812;
+  --bg-card:       #100d1c;
+  --bg-input:      #16112a;
+
+  /* ── Text ── */
+  --text:          #f4f0ff;
+  --text-sec:      rgba(255, 255, 255, 0.65);
+  --text-muted:    rgba(255, 255, 255, 0.38);
+
+  /* ── Borders ── */
+  --border:        rgba(168, 85, 247, 0.14);
+  --border-green:  rgba(0, 210, 100, 0.14);
+  --border-gold:   rgba(248, 193, 74, 0.22);
+
+  /* ── Typography ── */
+  --font:          'Outfit', system-ui, sans-serif;
+  --font-serif:    'Cormorant Garamond', Georgia, serif;
+
+  /* ── Spacing ── */
+  --sec-pad:       80px 5%;
+
+  /* ── Border Radii ── */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   22px;
+  --r-pill: 100px;
+}

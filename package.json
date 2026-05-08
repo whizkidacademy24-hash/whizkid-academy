@@ -1,0 +1,16 @@
+{
+  "name": "whizkid-trader-academy",
+  "version": "1.0.0",
+  "description": "WhizKid Trader Academy website with payment-gated course access.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.3",
+    "express-session": "^1.17.3",
+    "stripe": "^12.13.0"
+  }
+}

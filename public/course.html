@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhizKid Trader Academy — Course Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --white: #f0eee8;
+    --muted: #7a8196;
+    --cyan: #00d4ff;
+    --gold: #f5c842;
+    --green: #00e599;
+    --border: rgba(245,200,66,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { min-height: 100vh; background: radial-gradient(circle at top, rgba(0,212,255,0.12), transparent 35%), #080c14; color: var(--white); font-family: 'DM Sans', sans-serif; line-height: 1.8; }
+  a { color: var(--cyan); text-decoration: none; }
+  header { position: sticky; top: 0; z-index: 50; background: rgba(8,12,20,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1rem 6vw; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display:inline-flex; align-items:center; gap:0.4rem; font-family:'Playfair Display',serif; line-height:1; }
+  .logo-whizkid {
+    font-weight: 900;
+    font-size: 1.25rem;
+    background: linear-gradient(130deg, #d8b4fe 0%, #a855f7 45%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .logo-sep { color: rgba(255,255,255,0.18); font-size: 1.1rem; }
+  .logo-academy {
+    font-weight: 900;
+    font-size: 1.25rem;
+    background: linear-gradient(130deg, #6effa8 0%, #00d264 45%, #00a84f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .course-hero { padding: 6rem 6vw 3rem; text-align: center; }
+  .course-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.6rem,5vw,3.8rem); line-height:1.05; margin-bottom:1rem; }
+  .course-hero p { max-width: 720px; margin: 0 auto; color: var(--muted); font-size:1rem; }
+  .course-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; padding: 2rem 6vw 4rem; }
+  .course-card { background: rgba(19,27,46,0.88); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:1.8rem; position:relative; overflow:hidden; }
+  .course-card::before { content: ''; position:absolute; inset:0; background: radial-gradient(circle at top left, rgba(0,212,255,0.12), transparent 30%); pointer-events:none; }
+  .course-card > * { position: relative; z-index: 1; }
+  .course-card h2 { font-family:'Playfair Display',serif; margin-bottom:0.8rem; }
+  .course-card p { color: var(--muted); margin-bottom:1rem; }
+  .course-card video { width:100%; border-radius:12px; background:#000; }
+  .tag-row { display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:1rem; }
+  .tag { padding:0.45rem 1rem; border-radius:999px; font-size:0.75rem; background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.2); color:var(--cyan); }
+  .course-sync { padding: 0 6vw 4rem; display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
+  .action-pill { display:inline-flex; align-items:center; gap:0.6rem; padding:0.85rem 1.4rem; border-radius:999px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color: var(--white); font-weight:600; }
+  .course-note { color: var(--muted); max-width:760px; margin: 0 auto 2rem; text-align:center; }
+  footer { padding:2rem 6vw; border-top:1px solid rgba(255,255,255,0.08); text-align:center; color: var(--muted); }
+  @media(max-width:920px){ .course-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span class="logo-whizkid">WHIZKID</span><span class="logo-sep">·</span><span class="logo-academy">ACADEMY</span></div>
+  <a href="/">Back to Home</a>
+</header>
+<section class="course-hero">
+  <div class="section-eyebrow" style="display:inline-flex;align-items:center;gap:0.6rem;color:var(--cyan);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.18em;margin-bottom:1rem;">
+    <span>Member library</span>
+  </div>
+  <h1>Welcome to your course library.</h1>
+  <p>Access your premium macro trading video course now. This page is protected and visible only after enrollment and successful checkout.</p>
+</section>
+<div class="course-sync">
+  <span class="action-pill">✔ Paid access enabled</span>
+  <span class="action-pill">🎥 Video course library</span>
+  <span class="action-pill">🔒 Secure member access</span>
+</div>
+<div class="course-note">Replace the sample video sources with your own MP4 files inside <code>public/videos/</code>. Your enrolled students will see these videos immediately after payment.</div>
+<section class="course-grid">
+  <article class="course-card">
+    <h2>Module 1 — Macro Foundations</h2>
+    <p>Get started with central bank policy, major market drivers, and the fundamentals behind every high-probability trade.</p>
+    <video controls preload="metadata" poster="https://via.placeholder.com/800x450?text=Module+1+Preview">
+      <source src="/videos/module1.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+    <div class="tag-row"><span class="tag">Macro</span><span class="tag">Forex</span><span class="tag">Macro</span></div>
+  </article>
+  <article class="course-card">
+    <h2>Module 2 — Economic Cycle Trading</h2>
+    <p>Learn to read GDP, inflation, employment, and monetary policy data with a trader’s lens.</p>
+    <video controls preload="metadata" poster="https://via.placeholder.com/800x450?text=Module+2+Preview">
+      <source src="/videos/module2.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+    <div class="tag-row"><span class="tag">Economics</span><span class="tag">Data</span><span class="tag">Strategy</span></div>
+  </article>
+  <article class="course-card">
+    <h2>Module 3 — Live Monday Analysis</h2>
+    <p>Watch the live breakdown of the week’s most important setups across FX, commodities, and indices.</p>
+    <video controls preload="metadata" poster="https://via.placeholder.com/800x450?text=Module+3+Preview">
+      <source src="/videos/module3.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+    <div class="tag-row"><span class="tag">Live</span><span class="tag">Analysis</span><span class="tag">Weekly</span></div>
+  </article>
+  <article class="course-card">
+    <h2>Module 4 — Trade Blueprint</h2>
+    <p>Apply the WhizKid framework with trade entry, position management, and exit planning for every market regime.</p>
+    <video controls preload="metadata" poster="https://via.placeholder.com/800x450?text=Module+4+Preview">
+      <source src="/videos/module4.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+    <div class="tag-row"><span class="tag">Blueprint</span><span class="tag">Execution</span><span class="tag">Risk</span></div>
+  </article>
+</section>
+<footer>
+  Want to customize the student experience? Add your own video files under <strong>public/videos/</strong> and update the file names in this page.
+</footer>
+</body>
+</html>

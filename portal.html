@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal — WhizKid Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+
+  <!-- LOGIN GATE -->
+  <div id="login-gate">
+    <div class="login-card">
+      <div class="login-logo-wrap">
+        <a class="nav-logo" href="index.html">
+          <div class="logo-icon">
+            <div class="candles-wrap">
+              <div class="cd ca">
+                <div class="wk" style="height:3px"></div>
+                <div class="bd"></div>
+                <div class="wk" style="height:2px"></div>
+              </div>
+              <div class="cd cb">
+                <div class="wk" style="height:5px"></div>
+                <div class="bd"></div>
+                <div class="wk" style="height:2px"></div>
+              </div>
+              <div class="cd cc">
+                <div class="wk" style="height:3px"></div>
+                <div class="bd"></div>
+                <div class="wk" style="height:2px"></div>
+              </div>
+            </div>
+            <div class="arrow-mini"></div>
+          </div>
+          <div class="logo-words">
+            <div class="logo-wm">
+              <span class="lw-wk">WHIZKID</span><span class="lw-dot">·</span><span class="lw-ac">ACADEMY</span>
+            </div>
+            <div class="logo-sub"><span class="sg">Learn</span> <span class="sv">Trading</span></div>
+          </div>
+        </a>
+      </div>
+      <h2 class="login-title">Course Access Portal</h2>
+      <p class="login-sub">Enter your email and access code to access your course materials.</p>
+      <div class="login-form">
+        <input class="login-input" type="email" id="login-email" placeholder="Your email address" autocomplete="email">
+        <input class="login-input" type="text" id="login-code" placeholder="Access code (e.g. AB12CD)" maxlength="6" style="text-transform:uppercase;letter-spacing:3px;">
+        <div class="login-error" id="login-error">Invalid email or access code. Please check and try again.</div>
+        <button class="btn-login" onclick="attemptLogin()">Enter Portal →</button>
+      </div>
+      <hr class="login-divider">
+      <p class="login-note">
+        Access codes are sent within 24 hours of payment verification.<br>
+        Don't have an access code? <a href="enroll.html">Enroll here →</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- PORTAL APP -->
+  <div id="portal-app">
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+    <div class="portal-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <a class="nav-logo" href="index.html">
+            <div class="logo-icon">
+              <div class="candles-wrap">
+                <div class="cd ca">
+                  <div class="wk" style="height:3px"></div>
+                  <div class="bd"></div>
+                  <div class="wk" style="height:2px"></div>
+                </div>
+                <div class="cd cb">
+                  <div class="wk" style="height:5px"></div>
+                  <div class="bd"></div>
+                  <div class="wk" style="height:2px"></div>
+                </div>
+                <div class="cd cc">
+                  <div class="wk" style="height:3px"></div>
+                  <div class="bd"></div>
+                  <div class="wk" style="height:2px"></div>
+                </div>
+              </div>
+              <div class="arrow-mini"></div>
+            </div>
+            <div class="logo-words">
+              <div class="logo-wm">
+                <span class="lw-wk">WHIZKID</span><span class="lw-dot">·</span><span class="lw-ac">ACADEMY</span>
+              </div>
+              <div class="logo-sub"><span class="sg">Learn</span> <span class="sv">Trading</span></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="sidebar-student">
+          <div class="student-name" id="sb-name">Student</div>
+          <div class="student-email" id="sb-email">email@email.com</div>
+          <div class="student-badge" id="sb-badge">Starter</div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">My Courses</div>
+          <ul class="sidebar-nav" id="modules-sidebar-list">
+            <!-- populated by portal.js -->
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Resources</div>
+          <ul class="sidebar-nav">
+            <li>
+              <a href="#" onclick="showToast('PDF workbooks will be available after admin uploads them.')">
+                <span class="sidebar-icon">📄</span>PDF Workbooks
+              </a>
+            </li>
+            <li>
+              <a href="#" onclick="showToast('Charts & tools coming soon.')">
+                <span class="sidebar-icon">📊</span>Charts &amp; Tools
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Community</div>
+          <ul class="sidebar-nav">
+            <li>
+              <a href="#" onclick="showToast('Whizards Private Group link will be sent to your Facebook.')">
+                <span class="sidebar-icon">👥</span>Whizards Group
+              </a>
+            </li>
+            <li>
+              <a href="#" onclick="showToast('Contact info will be provided by Mr. Joseph after verification.')">
+                <span class="sidebar-icon">💬</span>Message Mr. Joseph
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="monday-box">
+          <div class="monday-label">🔴 Monday Live</div>
+          <div class="monday-title" id="sb-monday-title">Next session TBA</div>
+          <div class="monday-date" id="sb-monday-date">Check back on Monday</div>
+        </div>
+
+        <div class="sidebar-progress">
+          <div class="progress-label">
+            <span>Course Progress</span>
+            <span id="progress-text">0 / 0</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <button class="logout-btn" onclick="logout()"><span>🚪</span>Logout</button>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="portal-main">
+
+        <div class="top-bar">
+          <div class="top-bar-left">
+            <div class="top-bar-inner">
+              <button class="mobile-menu-btn" onclick="openSidebar()">☰</button>
+              <div>
+                <h2 id="welcome-msg">Welcome back!</h2>
+                <p id="today-date"></p>
+              </div>
+            </div>
+          </div>
+          <div class="top-bar-links">
+            <a href="enroll.html">Enroll</a>
+            <a href="index.html">Home</a>
+          </div>
+        </div>
+
+        <div class="portal-content">
+
+          <!-- VIDEO SECTION -->
+          <div class="video-section">
+            <div class="video-container">
+              <div class="video-placeholder" id="video-placeholder">
+                <div class="video-placeholder-icon">▶</div>
+                <div class="video-placeholder-text">Select a module below to start watching</div>
+              </div>
+              <iframe
+                id="video-iframe"
+                src=""
+                style="display:none;"
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-meta">
+                <div class="video-title" id="active-title">Choose a module to begin</div>
+                <div class="video-desc" id="active-desc">Your course modules are listed below. Click any unlocked module to start watching.</div>
+                <div class="video-badges">
+                  <span class="duration-badge" id="active-dur" style="display:none;"></span>
+                </div>
+              </div>
+              <button class="complete-btn" id="complete-btn" onclick="markComplete()" style="display:none;">Mark as Complete ✓</button>
+            </div>
+          </div>
+
+          <!-- MODULE GRID -->
+          <div class="modules-header">
+            <h3>Course Modules</h3>
+          </div>
+          <div class="modules-grid" id="modules-grid">
+            <!-- populated by portal.js -->
+          </div>
+
+        </div><!-- end portal-content -->
+
+        <div class="portal-footer">
+          <p>© 2026 WhizKid·Academy · <a href="index.html">Home</a> · <a href="enroll.html">Enroll</a> · Need help? Contact us via Facebook</p>
+        </div>
+
+      </div><!-- end portal-main -->
+    </div><!-- end portal-layout -->
+  </div><!-- end portal-app -->
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/portal.js"></script>
+</body>
+</html>

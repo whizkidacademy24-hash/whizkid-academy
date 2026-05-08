@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhizKid Trader Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════
+   RESET
+═══════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root {
+  --bg: #0a0812;
+  --bg2: #13082a;
+  --bg3: #0a1a10;
+  --violet-1: #d8b4fe;
+  --violet-2: #a855f7;
+  --violet-3: #7c3aed;
+  --green-1: #6effa8;
+  --green-2: #00d264;
+  --green-3: #00a84f;
+  --cyan: #00d4ff;
+  --white: #f8f5ff;
+  --muted: #b9bbcd;
+  --gold: #f5c842;
+  --gold2: #ffdf6b;
+  --green: #00e599;
+  --purple: #a78bfa;
+  --orange: #ff8c42;
+  --border: rgba(168,85,247,0.12);
+  --border2: rgba(0,210,100,0.15);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:rgba(0,210,100,0.3);border-radius:2px;}
+
+#bgCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+  opacity: 0.25;
+  animation: chartPulse 8s ease-in-out infinite;
+}
+
+@keyframes chartPulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.35; }
+}
+
+#scrollBar {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--green), var(--cyan), var(--gold));
+  transform-origin: left; transform: scaleX(0);
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0,229,153,0.8);
+}
+
+nav, .hero, section, footer, .modal-overlay { position: relative; z-index: 2; }
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 20, 0.9) 0%,
+    rgba(8, 12, 20, 0.7) 30%,
+    rgba(8, 12, 20, 0.4) 70%,
+    rgba(8, 12, 20, 0.2) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 20, 0.8) 0%,
+    rgba(8, 12, 20, 0.6) 40%,
+    rgba(8, 12, 20, 0.3) 80%,
+    rgba(8, 12, 20, 0.1) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero > *, .section > * { position: relative; z-index: 3; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.015) 1px, transparent 1px);
+  background-size: 100px 100px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.2;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1rem 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,12,18,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+}
+.logo-whizkid {
+  font-weight: 900;
+  font-size: 1.25rem;
+  background: linear-gradient(130deg, var(--violet-1) 0%, var(--violet-2) 45%, var(--violet-3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(168,85,247,0.35));
+}
+.logo-sep {
+  color: rgba(255,255,255,0.18);
+  font-size: 1.1rem;
+}
+.logo-academy {
+  font-weight: 900;
+  font-size: 1.25rem;
+  background: linear-gradient(130deg, var(--green-1) 0%, var(--green-2) 45%, var(--green-3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(0,210,100,0.3));
+}
+nav ul { display: flex; gap: 2rem; list-style: none; }
+nav a { color: var(--muted); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+nav a:hover { color: var(--cyan); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--gold), var(--orange)) !important;
+  color: #000 !important; padding: 0.45rem 1.4rem !important;
+  border-radius: 3px !important; font-weight: 600 !important;
+}
+
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  padding: 7rem 6vw 5rem;
+  gap: 3rem;
+}
+.hero-glow {
+  position: absolute; top: 10%; left: -10%; width: 60vw; height: 60vh;
+  background: radial-gradient(ellipse, rgba(168,85,247,0.16) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute; bottom: -10%; right: -5%; width: 40vw; height: 50vh;
+  background: radial-gradient(ellipse, rgba(0,210,100,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.25);
+  padding: 5px 14px; border-radius: 20px;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 1.5rem;
+}
+.badge-dot { width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite; }
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.4rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+}
+.hero h1 .line2 { color: var(--gold); font-style: italic; font-weight: 700; }
+.hero h1 .line3 { color: var(--white); font-weight: 600; }
+.hero h1 .dash  { color: var(--cyan); font-weight: 700; }
+.hero-sub { font-size: 1.125rem; color: var(--white); max-width: 440px; margin: 1.5rem 0 2.2rem; line-height: 1.9; font-weight: 400; }
+
+.weekly-banner {
+  display: flex; align-items: center; gap: 1rem;
+  background: linear-gradient(135deg, rgba(245,200,66,0.1), rgba(255,140,66,0.08));
+  border: 1px solid rgba(245,200,66,0.25);
+  border-radius: 6px; padding: 0.9rem 1.2rem;
+  margin-bottom: 2rem; max-width: 400px;
+}
+.weekly-badge { background: linear-gradient(135deg, var(--gold), var(--orange)); color: #000; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; white-space: nowrap; }
+.weekly-text strong { display:block; font-size:0.9rem; color:var(--white); font-weight:500; }
+.weekly-text span   { font-size:0.75rem; color:var(--muted); }
+.mon-chip {
+  background: rgba(245,200,66,0.15); border: 1px solid var(--gold);
+  color: var(--gold); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.15em; padding: 3px 10px; border-radius: 3px; margin-left: auto;
+}
+
+.hero-btns { display:flex; gap:1rem; align-items:center; margin-bottom: 3rem; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  color: #000; padding: 0.85rem 2rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+  border: none; cursor: pointer; text-decoration: none; border-radius: 4px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 20px rgba(245,200,66,0.25); display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 30px rgba(245,200,66,0.4); }
+.btn-ghost {
+  color: var(--cyan); font-size: 0.88rem; text-decoration: none;
+  border: 1px solid rgba(0,212,255,0.3); padding: 0.82rem 1.8rem;
+  border-radius: 4px; transition: background 0.2s; display: inline-block;
+}
+.btn-ghost:hover { background: rgba(0,212,255,0.08); }
+
+.hero-stats { display: flex; gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.stat-num { font-family:'Playfair Display',serif; font-size:1.9rem; display:block; }
+.stat-num.gold  { color: var(--gold);  }
+.stat-num.cyan  { color: var(--cyan);  }
+.stat-num.green { color: var(--green); }
+.stat-label { font-size:0.72rem; color:var(--muted); letter-spacing:0.07em; text-transform:uppercase; }
+
+.chart-card {
+  background: rgba(19,27,46,0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border2);
+  border-radius: 8px; padding: 1.4rem;
+  position: relative;
+  box-shadow: 0 0 40px rgba(0,212,255,0.06);
+}
+.chart-card::before {
+  content: '● LIVE'; position: absolute; top: 1rem; right: 1rem;
+  font-size: 0.62rem; letter-spacing: 0.12em; color: var(--green);
+}
+.chart-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem; }
+.chart-ticker { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--white); }
+.chart-sub    { font-size:0.7rem; color:var(--muted); margin-top:2px; }
+.chart-price  { font-size:1.5rem; font-weight:600; color:var(--green); text-align:right; }
+.chart-change { font-size:0.75rem; color:var(--green); text-align:right; }
+.chart-tabs   { display:flex; gap:1rem; margin-bottom:0.8rem; }
+.chart-tabs span { font-size:0.7rem; letter-spacing:0.08em; color:var(--muted); cursor:pointer; text-transform:uppercase; padding-bottom:3px; }
+.chart-tabs span.active { color:var(--cyan); border-bottom:1px solid var(--cyan); }
+.chart-canvas { height:190px; position:relative; }
+.chart-footer { margin-top:1rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; }
+.chart-footer span { font-size:0.72rem; color:var(--muted); }
+.chart-footer b { color:var(--white); }
+
+.section { padding:7rem 6vw; position:relative; }
+.section-eyebrow {
+  font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--cyan); margin-bottom:0.8rem;
+  display:flex; align-items:center; gap:0.6rem;
+}
+.section-eyebrow::before { content:''; display:inline-block; width:24px; height:1px; background:var(--cyan); }
+.section-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,3.5vw,3rem); font-weight:700; line-height:1.1; margin-bottom:1rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.framework-intro { color:var(--white); max-width:500px; font-size:1rem; margin-bottom:3.5rem; line-height:1.9; font-weight: 400; }
+
+.modules-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:rgba(255,255,255,0.04);
+}
+.module-item {
+  background: rgba(8,12,20,0.82);
+  backdrop-filter: blur(12px);
+  padding:2rem 1.8rem; transition:background 0.25s; position:relative; overflow:hidden;
+}
+.module-item::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--module-color,var(--cyan)), transparent);
+  transform:scaleX(0); transition:transform 0.3s;
+}
+.module-item:hover { background:rgba(19,27,46,0.9); }
+.module-item:hover::after { transform:scaleX(1); }
+.module-item:nth-child(1){--module-color:var(--gold)}
+.module-item:nth-child(2){--module-color:var(--cyan)}
+.module-item:nth-child(3){--module-color:var(--purple)}
+.module-item:nth-child(4){--module-color:var(--orange)}
+.module-item:nth-child(5){--module-color:var(--green)}
+.module-item:nth-child(6){--module-color:var(--gold2)}
+.module-icon { width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;font-size:1.1rem; }
+.module-num   { font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);margin-bottom:0.5rem;text-transform:uppercase; }
+.module-title { font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:0.6rem;color:var(--white); font-weight: 600; }
+.module-desc  { font-size:0.9rem;color:var(--white);line-height:1.75; font-weight: 400; }
+
+.educator-section {
+  padding:7rem 6vw;
+  background: rgba(14,20,32,0.82);
+  backdrop-filter: blur(16px);
+  display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;
+}
+.educator-img-wrap {
+  position:relative;
+  max-width:520px;
+}
+.educator-img {
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 30px 70px rgba(0,0,0,0.32);
+}
+.stat-badge {
+  position:absolute;bottom:2rem;left:-1.5rem;
+  background:rgba(19,27,46,0.9);backdrop-filter:blur(12px);
+  border:1px solid var(--border2);border-radius:6px;
+  padding:0.8rem 1.2rem;box-shadow:0 8px 30px rgba(0,0,0,0.4);
+}
+.stat-badge .num { font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);display:block; }
+.stat-badge .lbl { font-size:0.72rem;color:var(--muted); }
+.educator-name  { font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);line-height:1.1;margin:0.5rem 0; }
+.educator-title { color:var(--cyan);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem; }
+.educator-bio   { color:var(--white);font-size:1rem;line-height:1.9;margin-bottom:2rem; font-weight: 400; }
+.tags { display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2rem; }
+.tag { padding:4px 14px;border-radius:20px;font-size:0.72rem;letter-spacing:0.06em;border:1px solid; }
+.tag.gold   { border-color:rgba(245,200,66,0.4);color:var(--gold);background:rgba(245,200,66,0.06); }
+.tag.cyan   { border-color:rgba(0,212,255,0.3);color:var(--cyan);background:rgba(0,212,255,0.06); }
+.tag.purple { border-color:rgba(167,139,250,0.3);color:var(--purple);background:rgba(167,139,250,0.06); }
+
+.pricing-section {
+  padding:7rem 6vw;
+  background: rgba(8,12,20,0.82);
+  backdrop-filter: blur(16px);
+}
+.pricing-header { text-align:center;margin-bottom:4rem; }
+
+.modal-overlay {
+  display:none; position:fixed; inset:0; z-index:9000;
+  background:rgba(4,8,16,0.88); backdrop-filter:blur(12px);
+  align-items:center; justify-content:center; padding:2rem;
+}
+.modal-overlay.open { display:flex; }
+.modal-box {
+  background:rgba(14,20,32,0.97); border:1px solid rgba(0,212,255,0.2);
+  border-radius:12px; width:100%; max-width:860px; max-height:90vh;
+  overflow-y:auto; position:relative;
+  box-shadow:0 0 80px rgba(0,212,255,0.1),0 0 40px rgba(245,200,66,0.06);
+  animation:modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modalIn{from{opacity:0;transform:scale(0.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header { padding:2rem 2.5rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:flex-start;justify-content:space-between; }
+.modal-header h3 { font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white); }
+.modal-close {
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--muted);font-size:1.1rem;transition:all 0.2s;flex-shrink:0;
+}
+.modal-close:hover{background:rgba(255,87,87,0.15);color:var(--red);border-color:rgba(255,87,87,0.3);}
+.modal-footer { padding:1.2rem 2.5rem 2rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap; }
+.modal-footer-note { font-size:0.78rem;color:var(--muted); }
+.modal-footer-note strong { color:var(--green); }
+
+.book-section {
+  padding:7rem 6vw;
+  background: rgba(14,20,32,0.82);
+  backdrop-filter: blur(16px);
+}
+.book-inner { max-width:680px;margin:0 auto;text-align:center; }
+.book-options { display:flex;flex-direction:column;gap:1rem;margin-top:3rem; }
+.book-option {
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(19,27,46,0.75); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.07);border-radius:6px;
+  padding:1.2rem 1.5rem;transition:border-color 0.2s,background 0.2s;cursor:pointer;text-decoration:none;
+}
+.book-option:hover{border-color:var(--cyan);background:rgba(0,212,255,0.04);}
+.book-option-left{display:flex;align-items:center;gap:1rem;}
+.book-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.book-title{font-size:0.92rem;color:var(--white);font-weight:500;}
+.book-sub{font-size:0.75rem;color:var(--muted);}
+.book-arrow{color:var(--muted);font-size:1rem;}
+
+.faq-section{padding:7rem 6vw;}
+.faq-inner{max-width:680px;margin:0 auto;}
+.faq-item{border-bottom:1px solid rgba(255,255,255,0.06);padding:1.4rem 0;cursor:pointer;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:0.95rem;color:var(--white);}
+.faq-icon{color:var(--gold);font-size:1.2rem;transition:transform 0.25s;flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{font-size:0.85rem;color:var(--muted);margin-top:1rem;line-height:1.85;display:none;}
+.faq-item.open .faq-a{display:block;}
+
+.final-cta {
+  padding:9rem 6vw; text-align:center; position:relative;
+  background: rgba(8,12,20,0.75);
+  backdrop-filter: blur(16px);
+  overflow:hidden;
+}
+.final-cta::before {
+  content:''; position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:700px; height:400px;
+  background:radial-gradient(ellipse, rgba(245,200,66,0.09) 0%, transparent 70%);
+  pointer-events:none;
+}
+.final-cta h2{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);line-height:1.1;max-width:600px;margin:0.5rem auto 1.5rem; text-shadow: 0 2px 6px rgba(0,0,0,0.7); font-weight: 700;}
+.final-cta h2 em{color:var(--gold);font-style:italic;}
+.final-cta p{color:var(--white);max-width:420px;margin:0 auto 2.5rem;font-size:1rem; font-weight: 400;}
+
+footer {
+  padding:2.5rem 6vw; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:1rem;
+  background: rgba(8,12,20,0.9);
+  backdrop-filter: blur(16px);
+}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);}
+.footer-logo span{color:var(--cyan);font-style:italic;}
+footer p{font-size:0.75rem;color:var(--muted);}
+footer a{color:var(--muted);text-decoration:none;font-size:0.75rem;margin-left:1.5rem;transition:color 0.2s;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  .chart-card{display:none;}
+  .educator-section{grid-template-columns:1fr;}
+  .modules-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;max-width:460px;}
+  nav ul{display:none;}
+}
+@media(max-width:600px){
+  .modules-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div id="scrollBar"></div>
+<nav>
+  <div class="logo"><span class="logo-whizkid">WHIZKID</span><span class="logo-sep">·</span><span class="logo-academy">ACADEMY</span></div>
+  <ul>
+    <li><a href="#framework">Framework</a></li>
+    <li><a href="#educator">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#book" class="nav-cta">Enroll Now</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="badge"><div class="badge-dot"></div>Global Macro Trading Education</div>
+    <h1>
+      <div>Learn</div>
+      <div>Trading</div>
+      <div class="line2">the Right</div>
+      <div class="line2">Way</div>
+      <div><span class="dash">—</span> Not the</div>
+      <div class="line3">Hard Way</div>
+    </h1>
+    <p class="hero-sub">Master the macro and fundamental framework that professional traders use to understand markets — not just react to them.</p>
+    <div class="weekly-banner">
+      <div class="weekly-badge">Weekly</div>
+      <div class="weekly-text">
+        <strong>Market Analysis</strong>
+        <span>Every Monday — Live Session</span>
+      </div>
+      <div class="mon-chip">MON</div>
+    </div>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">Start Learning Today</a>
+      <a href="#framework" class="btn-ghost">View Curriculum</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num gold">1,800+</span><span class="stat-label">Students</span></div>
+      <div><span class="stat-num cyan">6</span><span class="stat-label">Core Modules</span></div>
+      <div><span class="stat-num green">Live</span><span class="stat-label">Every Monday</span></div>
+    </div>
+  </div>
+  <div class="chart-card" style="position:relative;z-index:1;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-ticker">EUR / USD</div>
+        <div class="chart-sub">Weekly Market Analysis</div>
+      </div>
+      <div>
+        <div class="chart-price" id="heroPrice">1.0842</div>
+        <div class="chart-change">▲ +0.38% today</div>
+      </div>
+    </div>
+    <div class="chart-tabs"><span>1H</span><span>4H</span><span class="active">1D</span><span>1W</span></div>
+    <div class="chart-canvas"><canvas id="miniChart"></canvas></div>
+    <div class="chart-footer">
+      <span>Vol <b>2.4B</b></span>
+      <span>High <b style="color:var(--green)">1.0891</b></span>
+      <span>Low  <b style="color:var(--red)">1.0754</b></span>
+      <span>MA20 <b style="color:var(--gold)">1.0801</b></span>
+    </div>
+  </div>
+</section>
+<section class="section" id="framework">
+  <div class="section-eyebrow">What You'll Learn</div>
+  <h2 class="section-title">A Complete Macro &amp;<br><em style="color:var(--gold);font-style:italic;">Fundamental Framework</em></h2>
+  <p class="framework-intro">Six modules built around how markets actually move — driven by central banks, global economics, and geopolitical forces that most retail traders completely ignore.</p>
+  <div class="modules-grid">
+    <div class="module-item">
+      <div class="module-icon" style="background:rgba(245,200,66,0.1);color:var(--gold)">🏦</div>
+      <div class="module-num">Module 01</div>
+      <div class="module-title">Central Bank Policy</div>
+      <p class="module-desc">Decode Fed, ECB, and BOJ decisions. Learn to read rate cycles and understand how monetary policy drives forex and equities before the move happens.</p>
+    </div>
+    <div class="module-item">
+      <div class="module-icon" style="background:rgba(0,212,255,0.1);color:var(--cyan)">📊</div>
+      <div class="module-num">Module 02</div>
+      <div class="module-title">Macroeconomics</div>
+      <p class="module-desc">GDP, inflation, employment — learn to interpret economic releases the way institutional desks do, and position ahead of consensus.</p>
+    </div>
+    <div class="module-item">
+      <div class="module-icon" style="background:rgba(167,139,250,0.1);color:var(--purple)">🌍</div>
+      <div class="module-num">Module 03</div>
+      <div class="module-title">Geopolitics</div>
+      <p class="module-desc">How global events create tradeable dislocations across forex, commodities, and indices — and how to identify them early.</p>
+    </div>
+    <div class="module-item">
+      <div class="module-icon" style="background:rgba(255,140,66,0.1);color:var(--orange)">📋</div>
+      <div class="module-num">Module 04</div>
+      <div class="module-title">Fiscal Policy</div>
+      <p class="module-desc">Government spending, debt cycles, and how fiscal decisions amplify or offset monetary policy across different market regimes.</p>
+    </div>
+    <div class="module-item">
+      <div class="module-icon" style="background:rgba(0,229,153,0.1);color:var(--green)">💱</div>
+      <div class="module-num">Module 05</div>
+      <div class="module-title">Major Currency Pairs</div>
+      <p class="module-desc">Deep analysis of DXY, EUR/USD, GBP/USD — the correlations, drivers, and setups that define the major pairs week to week.</p>
+    </div>
+    <div class="module-item">
+      <div class="module-icon" style="background:rgba(255,223,107,0.1);color:var(--gold2)">📡</div>
+      <div class="module-num">Module 06</div>
+      <div class="module-title">Monday Live Analysis</div>
+      <p class="module-desc">Every Monday, a live breakdown of the macro landscape and key setups for the week. Included with every plan. Forever.</p>
+    </div>
+  </div>
+</section>
+<section class="educator-section" id="educator">
+  <div class="educator-img-wrap">
+    <img src="/whizprofile.png" alt="Joseph Juarez Lejarde" class="educator-img">
+    <div class="stat-badge">
+      <span class="num">1,800+</span>
+      <span class="lbl">Students Enrolled</span>
+    </div>
+  </div>
+  <div>
+    <div class="section-eyebrow">Your Educator</div>
+    <h2 class="educator-name">Joseph Juarez<br>Lejarde</h2>
+    <div class="educator-title">Global Macro Trading Educator</div>
+    <p class="educator-bio">Joseph is a full-time macro trader and educator focused on helping retail traders understand markets at a structural level. Rather than teaching patterns and indicators, he teaches the <em>why</em> behind price — the economic forces, policy decisions, and global dynamics that move markets.</p>
+    <p class="educator-bio">His Monday Live Analysis sessions have become a cornerstone resource for over 1,800 students who want clarity in an otherwise noisy market environment.</p>
+    <div class="tags">
+      <span class="tag gold">Forex</span>
+      <span class="tag cyan">Macro Analysis</span>
+      <span class="tag purple">Central Banks</span>
+      <span class="tag gold">Geopolitics</span>
+      <span class="tag cyan">DXY</span>
+    </div>
+    <button onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="btn-primary" style="border:none;cursor:pointer;">View Programs →</button>
+  </div>
+</section>
+<section class="pricing-section" id="pricing">
+  <div class="pricing-header">
+    <div class="section-eyebrow" style="justify-content:center;">Choose Your Program</div>
+    <h2 class="section-title" style="text-align:center;margin:0.5rem auto;">Start Learning.<br><em style="color:var(--gold);font-style:italic;">Trade with Purpose.</em></h2>
+    <p style="color:var(--muted);font-size:0.92rem;margin-top:1rem;">Select the program that matches your level and goals.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:920px;margin:0 auto;">
+    <div style="background:rgba(14,20,32,0.85);backdrop-filter:blur(16px);border:1px solid rgba(0,212,255,0.18);border-radius:10px;padding:2.2rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;overflow:hidden;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 50px rgba(0,212,255,0.12)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--cyan)"></div>
+      <div style="display:inline-block;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:3px 12px;border-radius:20px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);color:var(--cyan);margin-bottom:1.2rem;">Beginner</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--white);margin-bottom:0.8rem;line-height:1.2;">Starter Trading Program</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--cyan);margin-bottom:0.2rem;">₱5,000</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">One-time payment · Lifetime access</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;">
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--cyan);font-weight:700;font-size:0.75rem;">✓</span>Trading fundamentals from scratch</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--cyan);font-weight:700;font-size:0.75rem;">✓</span>How to read charts &amp; price action</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--cyan);font-weight:700;font-size:0.75rem;">✓</span>Risk &amp; money management basics</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--cyan);font-weight:700;font-size:0.75rem;">✓</span>PDF workbooks included</li>
+      </ul>
+      <button type="button" onclick="openModal('Starter Trading Program','₱5,000','Beginner · One-time payment')" style="display:block;width:100%;padding:0.75rem;border:1px solid var(--cyan);color:var(--cyan);background:transparent;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:background 0.2s,color 0.2s;letter-spacing:0.04em;" onmouseenter="this.style.background='var(--cyan)';this.style.color='#000'" onmouseleave="this.style.background='transparent';this.style.color='var(--cyan)'">Enroll Now →</button>
+    </div>
+    <div style="background:rgba(14,20,32,0.85);backdrop-filter:blur(16px);border:1px solid rgba(167,139,250,0.18);border-radius:10px;padding:2.2rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;overflow:hidden;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 50px rgba(167,139,250,0.12)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--purple)"></div>
+      <div style="display:inline-block;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:3px 12px;border-radius:20px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);color:var(--purple);margin-bottom:1.2rem;">Intermediate</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--white);margin-bottom:0.8rem;line-height:1.2;">Introduction to Fundamentals</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--purple);margin-bottom:0.2rem;">₱10,000</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">One-time payment · Lifetime access</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;">
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--purple);font-weight:700;font-size:0.75rem;">✓</span>Macro &amp; fundamental framework</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--purple);font-weight:700;font-size:0.75rem;">✓</span>Central bank &amp; economic data</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--purple);font-weight:700;font-size:0.75rem;">✓</span>Geopolitics &amp; fiscal policy</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--purple);font-weight:700;font-size:0.75rem;">✓</span>PDF workbooks included</li>
+      </ul>
+      <button type="button" onclick="openModal('Introduction to Fundamentals','₱10,000','Intermediate · One-time payment')" style="display:block;width:100%;padding:0.75rem;border:1px solid var(--purple);color:var(--purple);background:transparent;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:background 0.2s,color 0.2s;letter-spacing:0.04em;" onmouseenter="this.style.background='var(--purple)';this.style.color='#000'" onmouseleave="this.style.background='transparent';this.style.color='var(--purple)'">Enroll Now →</button>
+    </div>
+    <div style="background:linear-gradient(160deg,rgba(24,31,48,0.92),rgba(14,20,32,0.92));backdrop-filter:blur(16px);border:1px solid rgba(245,200,66,0.35);border-radius:10px;padding:2.2rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;overflow:hidden;box-shadow:0 0 40px rgba(245,200,66,0.07);" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 50px rgba(245,200,66,0.15)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 0 40px rgba(245,200,66,0.07)'">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--orange))"></div>
+      <div style="position:absolute;top:1.2rem;right:1.2rem;background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;">All Access</div>
+      <div style="display:inline-block;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:3px 12px;border-radius:20px;background:rgba(245,200,66,0.08);border:1px solid rgba(245,200,66,0.3);color:var(--gold);margin-bottom:1.2rem;">Advanced</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--white);margin-bottom:0.8rem;line-height:1.2;">Master Class</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--gold);margin-bottom:0.2rem;">₱35,000</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">One-time payment · Complete all-access</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;">
+        <li style="font-size:0.82rem;color:var(--white);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--gold);font-weight:700;font-size:0.75rem;">✓</span>Everything in all programs</li>
+        <li style="font-size:0.82rem;color:var(--white);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--gold);font-weight:700;font-size:0.75rem;">✓</span>Monday Live Analysis (forever)</li>
+        <li style="font-size:0.82rem;color:var(--white);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--gold);font-weight:700;font-size:0.75rem;">✓</span>Private community access</li>
+        <li style="font-size:0.82rem;color:var(--white);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--gold);font-weight:700;font-size:0.75rem;">✓</span>1-on-1 review call with Joseph</li>
+      </ul>
+      <button type="button" onclick="openModal('Master Class','₱35,000','Advanced · All Access · One-time payment')" style="display:block;width:100%;padding:0.75rem;border:none;background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:opacity 0.2s,transform 0.15s;letter-spacing:0.04em;" onmouseenter="this.style.opacity='0.88';this.style.transform='scale(0.99)'" onmouseleave="this.style.opacity='1';this.style.transform=''">Enroll Now →</button>
+    </div>
+    <div style="background:rgba(14,20,32,0.85);backdrop-filter:blur(16px);border:1px solid rgba(0,229,153,0.18);border-radius:10px;padding:2.2rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;overflow:hidden;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 50px rgba(0,229,153,0.12)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div>
+      <div style="display:inline-block;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:3px 12px;border-radius:20px;background:rgba(0,229,153,0.08);border:1px solid rgba(0,229,153,0.25);color:var(--green);margin-bottom:1.2rem;">Flexible</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--white);margin-bottom:0.8rem;line-height:1.2;">Ladderized Program</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--green);margin-bottom:0.2rem;">₱35,000</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">Installment basis · Same all-access content</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;">
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--green);font-weight:700;font-size:0.75rem;">✓</span>All Master Class content</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--green);font-weight:700;font-size:0.75rem;">✓</span>Pay in flexible installments</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--green);font-weight:700;font-size:0.75rem;">✓</span>Unlock modules as you pay</li>
+        <li style="font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--green);font-weight:700;font-size:0.75rem;">✓</span>Full access upon completion</li>
+      </ul>
+      <button type="button" onclick="openModal('Ladderized Program','₱35,000','Flexible · Installment basis')" style="display:block;width:100%;padding:0.75rem;border:1px solid var(--green);color:var(--green);background:transparent;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:background 0.2s,color 0.2s;letter-spacing:0.04em;" onmouseenter="this.style.background='var(--green)';this.style.color='#000'" onmouseleave="this.style.background='transparent';this.style.color='var(--green)'">Enroll Now →</button>
+    </div>
+  </div>
+</section>
+<div class="modal-overlay" id="enrollModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <form id="enrollForm" action="/create-checkout-session" method="POST" onsubmit="return checkEnrollForm()">
+      <div class="modal-header">
+        <div>
+          <h3>You're Enrolling In</h3>
+          <p id="modalSubtitle" style="color:var(--muted);font-size:0.82rem;margin-top:0.3rem;"></p>
+        </div>
+        <button type="button" class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <input type="hidden" name="planName" id="planName">
+      <input type="hidden" name="planPrice" id="planPrice">
+      <input type="hidden" name="planNote" id="planNote">
+      <div style="padding:2rem 2.5rem;">
+        <div style="background:rgba(19,27,46,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div id="modalProgName" style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);"></div>
+            <div id="modalProgNote" style="font-size:0.75rem;color:var(--muted);margin-top:2px;"></div>
+          </div>
+          <div id="modalProgPrice" style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--gold);"></div>
+        </div>
+        <div style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;">Your Details</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <label style="font-size:0.75rem;color:var(--muted);display:block;margin-bottom:0.4rem;">Full Name</label>
+            <input type="text" name="fullName" id="fullName" placeholder="e.g. Juan dela Cruz" style="width:100%;background:rgba(19,27,46,0.9);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.65rem 0.9rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'" required>
+          </div>
+          <div>
+            <label style="font-size:0.75rem;color:var(--muted);display:block;margin-bottom:0.4rem;">Email Address</label>
+            <input type="email" name="email" id="email" placeholder="you@email.com" style="width:100%;background:rgba(19,27,46,0.9);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.65rem 0.9rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'" required>
+          </div>
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label style="font-size:0.75rem;color:var(--muted);display:block;margin-bottom:0.4rem;">Contact Number</label>
+          <input type="tel" name="phone" id="phone" placeholder="+63 9XX XXX XXXX" style="width:100%;background:rgba(19,27,46,0.9);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.65rem 0.9rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'" required>
+        </div>
+        <div style="margin-bottom:1.5rem;">
+          <label style="font-size:0.75rem;color:var(--muted);display:block;margin-bottom:0.4rem;">Trading Experience</label>
+          <select name="experience" id="experience" style="width:100%;background:rgba(19,27,46,0.9);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.65rem 0.9rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;appearance:none;" required>
+            <option value="" style="background:#0e1420;">Select your level...</option>
+            <option value="none" style="background:#0e1420;">No experience — complete beginner</option>
+            <option value="basic" style="background:#0e1420;">Basic — I know some chart reading</option>
+            <option value="intermediate" style="background:#0e1420;">Intermediate — I've been trading 1–2 years</option>
+            <option value="advanced" style="background:#0e1420;">Advanced — I trade regularly</option>
+          </select>
+        </div>
+        <button type="submit" style="display:block;width:100%;padding:0.9rem;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:6px;color:#000;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;" onmouseenter="this.style.opacity='0.88'" onmouseleave="this.style.opacity='1'">Confirm Enrollment →</button>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer-note">🔒 Your info is <strong>100% secure</strong> and never shared.</div>
+        <div class="modal-footer-note">Questions? <a href="#book" onclick="closeModal()" style="color:var(--cyan);text-decoration:none;">Book a free call</a> with Joseph first.</div>
+      </div>
+    </form>
+  </div>
+</div>
+<section class="book-section" id="book">
+  <div class="book-inner">
+    <div class="section-eyebrow" style="justify-content:center;">Free Consultation</div>
+    <h2 class="section-title" style="text-align:center;">Talk to Joseph<br><em style="color:var(--cyan);font-style:italic;">Before You Decide</em></h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-top:1rem;max-width:420px;margin-left:auto;margin-right:auto;">Not sure if this is right for you? Book a free 15–20 min call with Joseph. No pitch — just honest advice on whether this course fits your goals.</p>
+    <div class="book-options">
+      <a href="#" class="book-option">
+        <div class="book-option-left">
+          <div class="book-icon" style="background:rgba(0,212,255,0.1);color:var(--cyan);">📞</div>
+          <div><div class="book-title">Free 1-on-1 Call with Joseph</div><div class="book-sub">15–20 min · Totally Free · No obligation</div></div>
+        </div><span class="book-arrow">→</span>
+      </a>
+      <a href="#" class="book-option">
+        <div class="book-option-left">
+          <div class="book-icon" style="background:rgba(245,200,66,0.1);color:var(--gold);">💬</div>
+          <div><div class="book-title">Private Coaching</div><div class="book-sub">For traders who want dedicated 1-on-1 mentorship</div></div>
+        </div><span class="book-arrow">→</span>
+      </a>
+      <a href="#" class="book-option">
+        <div class="book-option-left">
+          <div class="book-icon" style="background:rgba(167,139,250,0.1);color:var(--purple);">👥</div>
+          <div><div class="book-title">Find us on Facebook</div><div class="book-sub">Join the WhizKid Trader Academy community group</div></div>
+        </div><span class="book-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-eyebrow" style="justify-content:center;">FAQ</div>
+    <h2 class="section-title" style="text-align:center;font-size:1.9rem;margin-bottom:3rem;">Common Questions</h2>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Who is this course for? <span class="faq-icon">+</span></div>
+      <p class="faq-a">Traders who want to understand markets at a macro level. Beginner to intermediate level is ideal — you should know basic chart reading, but you don't need prior macro experience.</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">What markets does this cover? <span class="faq-icon">+</span></div>
+      <p class="faq-a">Primary focus is Forex — major pairs and DXY. Content is also highly applicable to indices, gold, and oil, as they're all macro-driven.</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">How long do I have access? <span class="faq-icon">+</span></div>
+      <p class="faq-a">Lifetime access. All modules, all future updates, all recorded Monday sessions. Once you're in, you're in.</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Is there a money-back guarantee? <span class="faq-icon">+</span></div>
+      <p class="faq-a">Yes. If you complete the first three modules and feel it's not the right fit, reach out within 14 days for a full refund — no questions asked.</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">What's included in Monday Live Analysis? <span class="faq-icon">+</span></div>
+      <p class="faq-a">Every Monday, Joseph breaks down the macro landscape for the week ahead — key data releases, central bank movements, and specific setups to watch across the major pairs.</p>
+    </div>
+  </div>
+</section>
+<section class="final-cta">
+  <div class="section-eyebrow" style="justify-content:center;">Ready?</div>
+  <h2>Start Learning.<br><em>Trade with Purpose.</em></h2>
+  <p>Join 1,800+ traders who stopped guessing and started understanding the market from the inside out.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="#pricing" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">Enroll Today</a>
+    <a href="#book" class="btn-ghost" style="font-size:1rem;padding:1rem 2rem;">Book a Free Call</a>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">WhizKid <span>Trader Academy</span></div>
+  <p>© 2026 WhizKid Trader Academy. All rights reserved.</p>
+  <div>
+    <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a>
+  </div>
+</footer>
+<script>
+'use strict';
+gsap.registerPlugin(ScrollTrigger);
+function genBullCandles(n, seed, vol, trendBias) {
+  let s = seed;
+  const rng = () => { s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/0xffffffff; };
+  const out = [];
+  let price = 58000;
+  for (let i = 0; i < n; i++) {
+    const wave  = Math.sin(i * 0.15) * 0.2 + Math.sin(i * 0.05) * 0.3;
+    const bull  = rng() > (0.4 - (trendBias + wave) * 0.1);
+    const body  = rng() * vol * 0.7 + vol * 0.3;
+    const open  = price;
+    const close = price + (bull ? 1 : -1) * body;
+    const high  = Math.max(open, close) + rng() * vol * 0.4;
+    const low   = Math.min(open, close) - rng() * vol * 0.2;
+    out.push({ open, high, low, close, volume: 0.5 + rng() * 2.2, bull });
+    price = close + trendBias * 150;
+  }
+  return out;
+}
+const CANDLES = genBullCandles(120, 99, 600, 0.4);
+const bgC  = document.getElementById('bgCanvas');
+const bctx = bgC.getContext('2d');
+const DPR  = Math.min(window.devicePixelRatio || 1, 2);
+let BW = 0, BH = 0;
+function resizeBg() {
+  BW = window.innerWidth;
+  BH = window.innerHeight;
+  bgC.width  = BW * DPR;
+  bgC.height = BH * DPR;
+  bgC.style.width  = BW + 'px';
+  bgC.style.height = BH + 'px';
+  bctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+window.addEventListener('resize', resizeBg);
+const S = { revealFrac: 0.05, zoomFrac: 0, panFrac: 0, maAlpha: 0, volAlpha: 0, glowMult: 1, trendAlpha: 0, driftY: 0 };
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1.5,
+    onUpdate: self => { document.getElementById('scrollBar').style.transform = `scaleX(${self.progress})`; }
+  }
+});
+tl.to(S, { revealFrac: 1, duration: 0.25, ease: 'none' }, 0)
+  .to(S, { maAlpha: 1, duration: 0.30, ease: 'power2.inOut' }, 0.08)
+  .to(S, { trendAlpha: 1, duration: 0.30, ease: 'power1.inOut' }, 0.12)
+  .to(S, { volAlpha: 1, duration: 0.37, ease: 'power2.inOut' }, 0.18)
+  .to(S, { zoomFrac: 1, duration: 0.50, ease: 'power2.inOut' }, 0.28)
+  .to(S, { panFrac: 1, duration: 0.67, ease: 'power1.inOut' }, 0.28)
+  .to(S, { glowMult: 2.8, duration: 0.10, ease: 'power3.in' }, 0.48)
+  .to(S, { glowMult: 1.8, duration: 0.12, ease: 'power2.out' }, 0.58)
+  .to(S, { driftY: -60, duration: 1, ease: 'none' }, 0);
+function drawBg() {
+  if (!BW || !BH) return;
+  bctx.clearRect(0, 0, BW, BH);
+  const PL = 10, PR = 72, PT = BH * 0.07, PB = BH * 0.18;
+  const CW = BW - PL - PR;
+  const CH = BH - PT - PB;
+  const visCount = Math.round(100 - S.zoomFrac * 62);
+  const maxStart = Math.max(0, CANDLES.length - visCount);
+  const startIdx = Math.round(S.panFrac * maxStart);
+  const pool = CANDLES.slice(startIdx, startIdx + visCount);
+  const revN = Math.max(3, Math.round(pool.length * Math.min(1, S.revealFrac)));
+  const candles = pool.slice(0, revN);
+  let lo = Infinity, hi = -Infinity;
+  candles.forEach(c => { if (c.low < lo) lo = c.low; if (c.high > hi) hi = c.high; });
+  if (lo === Infinity) { lo = 56000; hi = 80000; }
+  const pad = (hi - lo) * 0.1;
+  lo -= pad; hi += pad;
+  const span = hi - lo;
+  const toX = i => PL + (i / Math.max(1, visCount - 1)) * CW;
+  const toY = p => PT + CH - ((p - lo) / span) * CH + S.driftY;
+  bctx.save();
+  for (let r = 0; r <= 6; r++) {
+    const y = PT + (r / 6) * CH + S.driftY;
+    bctx.save();
+    bctx.shadowBlur  = r === 3 ? 8 : 4;
+    bctx.shadowColor = 'rgba(0,212,255,0.3)';
+    bctx.strokeStyle = r === 3 ? 'rgba(0,212,255,0.12)' : 'rgba(0,180,220,0.08)';
+    bctx.lineWidth = 1;
+    bctx.beginPath(); bctx.moveTo(PL, y); bctx.lineTo(BW - PR, y); bctx.stroke();
+    bctx.restore();
+  }
+  for (let c = 0; c <= 8; c++) {
+    const x = PL + (c / 8) * CW;
+    bctx.save();
+    bctx.shadowBlur  = 3;
+    bctx.shadowColor = 'rgba(0,180,220,0.2)';
+    bctx.strokeStyle = 'rgba(0,180,220,0.06)';
+    bctx.beginPath(); bctx.moveTo(x, PT + S.driftY); bctx.lineTo(x, PT + CH + S.driftY); bctx.stroke();
+    bctx.restore();
+  }
+  bctx.restore();
+  if (S.trendAlpha > 0.01 && candles.length > 6) {
+    const x0 = toX(0), y0 = toY(candles[0].close);
+    const x1 = toX(candles.length-1), y1 = toY(candles[candles.length-1].close);
+    [[20, 0.02], [12, 0.05], [8, 0.08], [4, 0.15], [2, 0.35], [1, 0.8]].forEach(([lw, a]) => {
+      bctx.save();
+      bctx.strokeStyle = `rgba(0,229,153,${a * S.trendAlpha})`;
+      bctx.lineWidth   = lw;
+      bctx.shadowBlur  = Math.max(8, lw * 2);
+      bctx.shadowColor = '#00e599';
+      bctx.beginPath(); bctx.moveTo(x0, y0); bctx.lineTo(x1, y1); bctx.stroke();
+      bctx.restore();
+    });
+    bctx.save();
+    bctx.beginPath();
+    bctx.moveTo(x0, y0); bctx.lineTo(x1, y1);
+    bctx.lineTo(x1, PT + CH + S.driftY);
+    bctx.lineTo(x0, PT + CH + S.driftY);
+    bctx.closePath();
+    const tg = bctx.createLinearGradient(0, PT + S.driftY, 0, PT + CH + S.driftY);
+    tg.addColorStop(0, `rgba(0,229,153,${0.13 * S.trendAlpha})`);
+    tg.addColorStop(0.5, `rgba(0,229,153,${0.05 * S.trendAlpha})`);
+    tg.addColorStop(1, 'rgba(0,229,153,0)');
+    bctx.fillStyle = tg; bctx.fill();
+    bctx.restore();
+  }
+  if (S.maAlpha > 0.01) {
+    const ma20 = buildMA(candles, 20);
+    const ma50 = buildMA(candles, 50);
+    drawSpline(ma50, visCount, toX, toY, `rgba(255,180,0,${S.maAlpha * 0.65})`, 1.8, null, CH, PT, S.driftY);
+    drawSpline(ma20, visCount, toX, toY, `rgba(0,212,255,${S.maAlpha})`, 3.5, [[0, `rgba(0,212,255,${S.maAlpha * 0.08})`],[0.3, `rgba(0,212,255,${S.maAlpha * 0.15})`],[0.7, `rgba(0,212,255,${S.maAlpha * 0.08})`],[1, 'rgba(0,212,255,0)']], CH, PT, S.driftY);
+  }
+  const cw = Math.max(3, (CW / visCount) * 0.58);
+  const gm = S.glowMult;
+  candles.forEach((c, i) => {
+    const bull = c.close >= c.open;
+    const col  = bull ? '#00e599' : '#ff5757';
+    const gR   = bull ? 'rgba(0,229,153,' : 'rgba(255,87,87,';
+    const x    = toX(i);
+    bctx.save();
+    bctx.strokeStyle = `${gR}${Math.min(1, 0.3 * gm)})`;
+    bctx.lineWidth   = Math.max(2, cw * 0.25);
+    bctx.shadowBlur  = 25 * gm;
+    bctx.shadowColor = col;
+    bctx.beginPath();
+    bctx.moveTo(x, toY(c.high));
+    bctx.lineTo(x, toY(c.low));
+    bctx.stroke();
+    bctx.strokeStyle = `${gR}${Math.min(1, 0.9 * gm)})`;
+    bctx.lineWidth   = Math.max(1, cw * 0.12);
+    bctx.shadowBlur  = 8 * gm;
+    bctx.shadowColor = col;
+    bctx.stroke();
+    bctx.restore();
+    const by = toY(Math.max(c.open, c.close));
+    const bh = Math.max(2, Math.abs(toY(c.open) - toY(c.close)));
+    bctx.save();
+    bctx.shadowBlur  = 45 * gm;
+    bctx.shadowColor = col;
+    bctx.fillStyle   = `${gR}${0.04 * gm})`;
+    bctx.fillRect(x - cw/2 - 12, by - 8, cw + 24, bh + 16);
+    bctx.shadowBlur  = 25 * gm;
+    bctx.fillStyle   = `${gR}${0.08 * gm})`;
+    bctx.fillRect(x - cw/2 - 6, by - 4, cw + 12, bh + 8);
+    bctx.shadowBlur  = 15 * gm;
+    bctx.fillStyle   = `${gR}${0.15 * gm})`;
+    bctx.fillRect(x - cw/2 - 2, by - 1, cw + 4, bh + 2);
+    bctx.shadowBlur  = 8 * gm;
+    bctx.fillStyle   = `${gR}${0.25 * gm})`;
+    bctx.fillRect(x - cw/2, by, cw, bh);
+    bctx.shadowBlur = 4;
+    const bg = bctx.createLinearGradient(x - cw/2, by, x + cw/2, by + bh);
+    if (bull) {
+      bg.addColorStop(0, 'rgba(0,255,160,1)');
+      bg.addColorStop(0.4, 'rgba(0,220,140,0.95)');
+      bg.addColorStop(1, 'rgba(0,170,100,0.85)');
+    } else {
+      bg.addColorStop(0, 'rgba(255,80,100,1)');
+      bg.addColorStop(0.4, 'rgba(240,60,80,0.95)');
+      bg.addColorStop(1, 'rgba(200,20,50,0.85)');
+    }
+    bctx.fillStyle = bg;
+    bctx.fillRect(x - cw/2, by, cw, bh);
+    bctx.fillStyle = bull ? 'rgba(200,255,230,0.5)' : 'rgba(255,180,190,0.4)';
+    bctx.shadowBlur = 0;
+    bctx.fillRect(x - cw/2, by, cw, 1.5);
+    bctx.restore();
+  });
+  if (candles.length > 0) {
+    const lc = candles[candles.length - 1];
+    const ly = toY(lc.close);
+    const bull = lc.close >= lc.open;
+    const lineCol = bull ? '#00e599' : '#ff5757';
+    bctx.save();
+    bctx.setLineDash([4, 5]);
+    bctx.strokeStyle = bull ? 'rgba(0,229,153,0.5)' : 'rgba(255,87,87,0.5)';
+    bctx.lineWidth = 1;
+    bctx.shadowBlur = 6;
+    bctx.shadowColor = lineCol;
+    bctx.beginPath(); bctx.moveTo(PL, ly); bctx.lineTo(BW - PR, ly); bctx.stroke();
+    bctx.setLineDash([]);
+    bctx.restore();
+    bctx.save();
+    bctx.shadowBlur  = 20;
+    bctx.shadowColor = lineCol;
+    bctx.fillStyle   = bull ? 'rgba(0,210,130,0.3)' : 'rgba(230,50,70,0.3)';
+    bctx.fillRect(BW - PR - 4, ly - 14, PR + 7, 28);
+    bctx.shadowBlur  = 12;
+    bctx.fillStyle   = bull ? 'rgba(0,210,130,0.95)' : 'rgba(230,50,70,0.95)';
+    bctx.fillRect(BW - PR, ly - 10, PR - 1, 20);
+    bctx.shadowBlur  = 4;
+    bctx.fillStyle   = bull ? 'rgba(0,240,160,0.9)' : 'rgba(255,80,100,0.9)';
+    bctx.fillRect(BW - PR + 1, ly - 8, PR - 3, 16);
+    bctx.shadowBlur  = 0;
+    bctx.fillStyle   = '#000';
+    bctx.font        = 'bold 9.5px "DM Sans", sans-serif';
+    bctx.textAlign   = 'center';
+    bctx.fillText(Math.round(lc.close / 1000) + 'K', BW - PR + (PR - 1) / 2, ly + 3.5);
+    bctx.textAlign   = 'left';
+    bctx.restore();
+  }
+  if (S.volAlpha > 0.01) {
+    const maxV = Math.max(...candles.map(c => c.volume));
+    const volH = BH * 0.11;
+    const volY0 = BH - volH * 0.08;
+    candles.forEach((c, i) => {
+      const x = toX(i);
+      const bull = c.close >= c.open;
+      const bh2 = (c.volume / maxV) * volH * S.volAlpha;
+      const gR = bull ? 'rgba(0,229,153,' : 'rgba(255,87,87,';
+      bctx.save();
+      bctx.shadowBlur  = 12 * S.volAlpha;
+      bctx.shadowColor = bull ? '#00e599' : '#ff5757';
+      bctx.fillStyle = `${gR}0.06)`;
+      bctx.fillRect(x - cw / 2 - 3, volY0 - bh2 - 2, cw + 6, bh2 + 4);
+      bctx.shadowBlur  = 6 * S.volAlpha;
+      bctx.fillStyle = `${gR}0.15)`;
+      bctx.fillRect(x - cw / 2, volY0 - bh2, cw, bh2);
+      bctx.shadowBlur  = 8 * S.volAlpha;
+      bctx.fillStyle = `${gR}0.8)`;
+      bctx.fillRect(x - cw / 2, volY0 - bh2, cw, Math.min(3.5, bh2));
+      bctx.restore();
+    });
+  }
+  const vL = bctx.createLinearGradient(0, 0, 80, 0);
+  vL.addColorStop(0, 'rgba(8,12,20,0.85)');
+  vL.addColorStop(1, 'rgba(8,12,20,0)');
+  bctx.fillStyle = vL; bctx.fillRect(0, 0, 80, BH);
+  const vR = bctx.createLinearGradient(BW - PR - 10, 0, BW, 0);
+  vR.addColorStop(0, 'rgba(8,12,20,0)');
+  vR.addColorStop(1, 'rgba(8,12,20,0.92)');
+  bctx.fillStyle = vR; bctx.fillRect(BW - PR - 10, 0, PR + 10, BH);
+  const vT = bctx.createLinearGradient(0, 0, 0, 70);
+  vT.addColorStop(0, 'rgba(8,12,20,0.95)');
+  vT.addColorStop(1, 'rgba(8,12,20,0)');
+  bctx.fillStyle = vT; bctx.fillRect(0, 0, BW, 70);
+  const vB = bctx.createLinearGradient(0, BH - 80, 0, BH);
+  vB.addColorStop(0, 'rgba(8,12,20,0)');
+  vB.addColorStop(1, 'rgba(8,12,20,0.92)');
+  bctx.fillStyle = vB; bctx.fillRect(0, BH - 80, BW, 80);
+}
+function buildMA(candles, n) {
+  return candles.map((_, i) => {
+    const sl = candles.slice(Math.max(0, i - n + 1), i + 1);
+    return sl.reduce((a, c) => a + c.close, 0) / sl.length;
+  });
+}
+function drawSpline(data, visCount, toX, toY, stroke, lw, fill, CH, PT, dY) {
+  if (data.length < 2) return;
+  bctx.save();
+  bctx.strokeStyle = stroke;
+  bctx.lineWidth   = lw;
+  bctx.shadowBlur  = lw > 2 ? 18 : 8;
+  bctx.shadowColor = stroke;
+  bctx.beginPath();
+  for (let i = 0; i < data.length; i++) {
+    const x = toX(i), y = toY(data[i]);
+    if (i === 0) { bctx.moveTo(x, y); continue; }
+    const px = toX(i - 1), py = toY(data[i - 1]);
+    bctx.bezierCurveTo(px + (x - px) * 0.45, py, x - (x - px) * 0.45, y, x, y);
+  }
+  bctx.stroke();
+  if (fill) {
+    const lx = toX(data.length - 1), fx = toX(0);
+    bctx.lineTo(lx, PT + CH + dY);
+    bctx.lineTo(fx, PT + CH + dY);
+    bctx.closePath();
+    const g = bctx.createLinearGradient(0, PT + dY, 0, PT + CH + dY);
+    fill.forEach(([s, c]) => g.addColorStop(+s, c));
+    bctx.shadowBlur = 0;
+    bctx.fillStyle  = g;
+    bctx.fill();
+  }
+  bctx.restore();
+}
+(function loop() { drawBg(); requestAnimationFrame(loop); })();
+function drawMiniChart() {
+  const cvs = document.getElementById('miniChart');
+  if (!cvs) return;
+  const wrap = cvs.parentElement;
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const dpr = window.devicePixelRatio || 1;
+  cvs.width = W * dpr; cvs.height = H * dpr;
+  cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+  const ctx = cvs.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const pts = [];
+  let p = 1.062;
+  for (let i = 0; i < 60; i++) { p += (Math.random() - 0.43) * 0.0009 + 0.00010; pts.push(p); }
+  const PL = 8, PR = 8, PT = 8, PB = 8;
+  const CW = W - PL - PR, CH = H - PT - PB;
+  const mn = Math.min(...pts) * 0.9997, mx = Math.max(...pts) * 1.0003;
+  const sp = mx - mn;
+  const tx = i => PL + (i / (pts.length - 1)) * CW;
+  const ty = v => PT + CH - ((v - mn) / sp) * CH;
+  ctx.strokeStyle='rgba(0,180,220,0.07)'; ctx.lineWidth=0.5;
+  [0,1,2,3].forEach(r=>{const y=PT+(r/3)*CH;ctx.beginPath();ctx.moveTo(PL,y);ctx.lineTo(W-PR,y);ctx.stroke();});
+  ctx.beginPath();
+  pts.forEach((v,i)=>{const x=tx(i),y=ty(v);if(i===0){ctx.moveTo(x,y);return;}const px=tx(i-1),py=ty(pts[i-1]);ctx.bezierCurveTo(px+(x-px)*0.45,py,x-(x-px)*0.45,y,x,y);});
+  ctx.lineTo(tx(pts.length-1),PT+CH); ctx.lineTo(tx(0),PT+CH); ctx.closePath();
+  const fg=ctx.createLinearGradient(0,PT,0,PT+CH);
+  fg.addColorStop(0,'rgba(0,229,153,0.22)'); fg.addColorStop(1,'rgba(0,229,153,0)');
+  ctx.fillStyle=fg; ctx.fill();
+  ctx.beginPath(); ctx.strokeStyle='rgba(0,229,153,0.95)'; ctx.lineWidth=2; ctx.shadowBlur=10; ctx.shadowColor='rgba(0,229,153,0.7)';
+  pts.forEach((v,i)=>{const x=tx(i),y=ty(v);if(i===0){ctx.moveTo(x,y);return;}const px=tx(i-1),py=ty(pts[i-1]);ctx.bezierCurveTo(px+(x-px)*0.45,py,x-(x-px)*0.45,y,x,y);});
+  ctx.stroke(); ctx.shadowBlur=0;
+  const mapts=pts.map((_,i)=>{const sl=pts.slice(Math.max(0,i-9),i+1);return sl.reduce((a,b)=>a+b,0)/sl.length;});
+  ctx.beginPath(); ctx.strokeStyle='rgba(245,200,66,0.7)'; ctx.lineWidth=1.2; ctx.setLineDash([3,3]);
+  mapts.forEach((v,i)=>{const x=tx(i),y=ty(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.stroke(); ctx.setLineDash([]);
+}
+let baseFX = 1.0842;
+setInterval(() => {
+  baseFX += (Math.random() - 0.49) * 0.0003;
+  const v = baseFX.toFixed(4);
+  const el = document.getElementById('heroPrice');
+  if (el) el.textContent = v;
+}, 900);
+function openModal(name, price, note) {
+  document.getElementById('modalProgName').textContent  = name;
+  document.getElementById('modalProgPrice').textContent = price;
+  document.getElementById('modalProgNote').textContent  = note;
+  document.getElementById('modalSubtitle').textContent  = note;
+  document.getElementById('planName').value = name;
+  document.getElementById('planPrice').value = price;
+  document.getElementById('planNote').value = note;
+  document.getElementById('enrollModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('enrollModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function checkEnrollForm() {
+  const form = document.getElementById('enrollForm');
+  const required = ['fullName', 'email', 'phone', 'experience'];
+  for (const id of required) {
+    const input = document.getElementById(id);
+    if (!input || !input.value.trim()) {
+      alert('Please complete all enrollment fields before continuing.');
+      input.focus();
+      return false;
+    }
+  }
+  return true;
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+window.addEventListener('load', () => { resizeBg(); drawMiniChart(); });
+window.addEventListener('resize', drawMiniChart);
+</script>
+</body>
+</html>
